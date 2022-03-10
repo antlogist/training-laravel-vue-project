@@ -32,4 +32,15 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// If page doesn't need a corresponding controller method
+// Route::get('/notes', function () {
+//     return Inertia::render('Notes');
+// })->middleware(['auth', 'verified'])->name('note');
+
+Route::get('/notes',
+    [\App\Http\Controllers\NoteController::class,
+    'index'])->name('notes');
+
+// Route::inertia('/welcome', 'Welcome');
+
 require __DIR__.'/auth.php';

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 class NoteController extends Controller
 {
-    public function index() {
+    public function show() {
         return Inertia::render('NoteList', [
             'title' => 'Notes'
         ]);

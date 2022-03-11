@@ -1,90 +1,41 @@
 <template>
-    <Head title="Welcome" />
+    <v-app>
+        <Head title="Welcome" />
+        <v-app-bar color="grey-lighten-2">
+            <v-app-bar-title>Mnemonica</v-app-bar-title>
 
-    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-        <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+            <div>
+                <div v-if="canLogin">
 
-            <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-gray-700 underline">
-                Dashboard
-            </Link>
+                    <Link class="text-decoration-none text-primary" v-if="$page.props.auth.user" :href="route('dashboard')">
+                        <v-btn color="black" size="small" variant="outlined">Dashboard</v-btn>
+                    </Link>
 
-            <template v-else>
-                <Link :href="route('login')" class="text-sm text-gray-700 underline">
-                    Log in
-                </Link>
+                    <template v-else>
+                        <Link class="text-decoration-none text-primary mr-2" :href="route('login')">
+                            <v-btn color="black" size="small" variant="outlined">Login</v-btn>
+                        </Link>
 
-                <Link v-if="canRegister" :href="route('register')" class="ml-4 text-sm text-gray-700 underline">
-                    Register
-                </Link>
-            </template>
+                        <Link class="text-decoration-none text-primary" v-if="canRegister" :href="route('register')">
+                            <v-btn color="black" size="small" variant="outlined">Register</v-btn>
+                        </Link>
+                    </template>
 
+                </div>
+
+            </div>
+
+        </v-app-bar>
+        <div class="d-flex align-center justify-center" style="height: 100vh;">
+            <v-card color="grey-lighten-2 d-flex align-center justify-center mx-auto elevation-9" height="200px" max-width="344">
+                <v-card-text>
+                    <h1>Mnemonica</h1>
+                </v-card-text>
+            </v-card>
         </div>
-    </div>
+
+    </v-app>
 </template>
-
-<style scoped>
-    .bg-gray-100 {
-        background-color: #f7fafc;
-        background-color: rgba(247, 250, 252, var(--tw-bg-opacity));
-    }
-
-    .border-gray-200 {
-        border-color: #edf2f7;
-        border-color: rgba(237, 242, 247, var(--tw-border-opacity));
-    }
-
-    .text-gray-400 {
-        color: #cbd5e0;
-        color: rgba(203, 213, 224, var(--tw-text-opacity));
-    }
-
-    .text-gray-500 {
-        color: #a0aec0;
-        color: rgba(160, 174, 192, var(--tw-text-opacity));
-    }
-
-    .text-gray-600 {
-        color: #718096;
-        color: rgba(113, 128, 150, var(--tw-text-opacity));
-    }
-
-    .text-gray-700 {
-        color: #4a5568;
-        color: rgba(74, 85, 104, var(--tw-text-opacity));
-    }
-
-    .text-gray-900 {
-        color: #1a202c;
-        color: rgba(26, 32, 44, var(--tw-text-opacity));
-    }
-
-    @media (prefers-color-scheme: dark) {
-        .dark\:bg-gray-800 {
-            background-color: #2d3748;
-            background-color: rgba(45, 55, 72, var(--tw-bg-opacity));
-        }
-
-        .dark\:bg-gray-900 {
-            background-color: #1a202c;
-            background-color: rgba(26, 32, 44, var(--tw-bg-opacity));
-        }
-
-        .dark\:border-gray-700 {
-            border-color: #4a5568;
-            border-color: rgba(74, 85, 104, var(--tw-border-opacity));
-        }
-
-        .dark\:text-white {
-            color: #fff;
-            color: rgba(255, 255, 255, var(--tw-text-opacity));
-        }
-
-        .dark\:text-gray-400 {
-            color: #cbd5e0;
-            color: rgba(203, 213, 224, var(--tw-text-opacity));
-        }
-    }
-</style>
 
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';

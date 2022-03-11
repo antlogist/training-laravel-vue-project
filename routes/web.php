@@ -39,7 +39,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/notes',
     [\App\Http\Controllers\NoteController::class,
-    'index'])->name('notes');
+    'show'])->name('notes');
 
 // Route::inertia('/welcome', 'Welcome');
 

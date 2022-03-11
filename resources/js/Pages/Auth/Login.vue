@@ -7,34 +7,41 @@
         {{ status }}
     </div>
 
-    <form @submit.prevent="submit">
-        <div>
-            <BreezeLabel for="email" value="Email" />
-            <BreezeInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus autocomplete="username" />
-        </div>
+    <v-form @submit.prevent="submit">
+        <v-text-field
+            v-model="form.email"
+            :rules="emailRules"
+            label="E-mail"
+            autofocus
+            autocomplete="username"
+            required
+        ></v-text-field>
 
-        <div class="mt-4">
-            <BreezeLabel for="password" value="Password" />
-            <BreezeInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="current-password" />
-        </div>
+        <v-text-field
+            v-model="form.password"
+            :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="required"
+            :type="showPass ? 'text' : 'password'"
+            name="password"
+            label="Password"
+            @click:append="showPass = !showPass"
+        ></v-text-field>
 
-        <div class="block mt-4">
-            <label class="flex items-center">
-                <BreezeCheckbox name="remember" v-model:checked="form.remember" />
-                <span class="ml-2 text-sm text-gray-600">Remember me</span>
-            </label>
-        </div>
+        <v-checkbox
+            v-model:checked="form.remember"
+            name="remember"
+            label="Remember me"
+        ></v-checkbox>
 
-        <div class="flex items-center justify-end mt-4">
-            <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                Forgot your password?
+        <div class="d-flex justify-space-between mt-4">
+            <Link v-if="canResetPassword" :href="route('password.request')" class="text-decoration-none">
+                <v-btn variant="text" size="small" class="text-black">Forgot your password?</v-btn>
             </Link>
 
-            <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Log in
-            </BreezeButton>
+            <v-btn color="black" size="small" variant="outlined" @click.prevent="submit">Log in</v-btn>
         </div>
-    </form>
+    </v-form>
+
 </template>
 
 <script>
@@ -66,11 +73,17 @@ export default {
 
     data() {
         return {
+            showPass: false,
             form: this.$inertia.form({
                 email: '',
                 password: '',
                 remember: false
-            })
+            }),
+            emailRules: [
+                v => !!v || 'E-mail is required',
+                v => /.+@.+/.test(v) || 'E-mail must be valid',
+            ],
+            required: value => !!value || 'Required.'
         }
     },
 

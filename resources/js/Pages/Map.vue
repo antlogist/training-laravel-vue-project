@@ -6,9 +6,9 @@
             <v-col cols="12" sm="4">
               <v-card class="pa-2" outlined tile>
                 <div class="buttons-wrapper text-center mb-3">
-                  <v-btn variant="outlined" size="x-small" class="mr-1" @click="draw()">Layer 1</v-btn>
-                  <v-btn variant="outlined" size="x-small">Layer 2</v-btn>
-                  <v-btn variant="outlined" size="x-small" class="ml-1">Layer 3</v-btn>
+                  <v-btn variant="outlined" size="x-small" class="mr-1" @click="setLayer(2)">Top</v-btn>
+                  <v-btn variant="outlined" size="x-small" @click="setLayer(1)">Middle</v-btn>
+                  <v-btn variant="outlined" size="x-small" class="ml-1" @click="setLayer(0)">Bottom</v-btn>
                 </div>
 
                 <div class="text-center">
@@ -43,8 +43,8 @@ export default {
     let canvas = ref(null);
     let ctx = ref(null);
     let canvasSize = reactive({
-      height: 480,
-      width: 480
+      height: 960,
+      width: 960
     });
 
     //tileset
@@ -64,13 +64,15 @@ export default {
     //bottom->middle->top
     //structure: 'x-y': ['tilesetX', 'tilesetY']
     //example: '1-1': [3, 4]
-    let layers = reactive([{
-      '0-0': [1,1]
-    },{},{}]);
+    let layers = reactive([{},{},{}]);
 
     function colorRect(topLeftX,topLeftY, boxWidth,boxHeight, fillColor) {
       ctx.fillStyle = fillColor;
       ctx.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
+    }
+
+    function setLayer(layer) {
+      currentLayer.value = layer;
     }
 
     function draw() {
@@ -159,7 +161,7 @@ export default {
     return {
       canvasSize,
       tilesetSource,
-      draw
+      setLayer
     }
 
   },
@@ -181,5 +183,9 @@ export default {
   top: 0;
   width: 32px;
   height: 32px;
+}
+
+canvas {
+  border: 1px solid black;
 }
 </style>

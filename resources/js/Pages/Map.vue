@@ -11,9 +11,11 @@
                   <v-btn variant="outlined" size="x-small" class="ml-1">Layer 3</v-btn>
                 </div>
 
-                <div class="tileset-wrapper text-center">
-                  <img :src="tilesetSource" id="tilesetSource" alt="tile">
-                  <div class="tile-selection"></div>
+                <div class="text-center">
+                  <div class="tileset-wrapper">
+                    <img :src="tilesetSource" id="tilesetSource" alt="tile">
+                    <div class="tile-selection"></div>
+                  </div>
                 </div>
               </v-card>
             </v-col>
@@ -94,6 +96,13 @@ export default {
       })
     }
 
+    function getCoordinates(e) {
+      const {x, y} = e.target.getBoundingClientRect();
+      const mouseX = e.clientX - x;
+      const mouseY = e.clientY - y;
+      return [Math.floor(mouseX / 32), Math.floor(mouseY / 32)];
+    }
+
     onMounted(() => {
       //canvas
       canvas = document.querySelector('canvas');
@@ -102,6 +111,9 @@ export default {
 
       //tileset
       tilesetWrapper = document.querySelector('.tileset-wrapper');
+      tilesetWrapper.addEventListener('mousedown', event => {
+        console.log(getCoordinates(event));
+      });
       tilesetSelection = document.querySelector('.tileset-selection');
       // tilesetSource = document.querySelector('.tileset-source');
 
@@ -124,3 +136,18 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.tileset-wrapper {
+  display: inline-block;
+  position: relative;
+}
+.tile-selection {
+  position: absolute;
+  outline: 3px solid black;
+  left: 0;
+  top: 0;
+  width: 32px;
+  height: 32px;
+}
+</style>

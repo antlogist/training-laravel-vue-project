@@ -6,13 +6,13 @@
             <v-col cols="12" sm="4">
               <v-card class="pa-2" outlined tile>
                 <div class="buttons-wrapper text-center mb-3">
-                  <v-btn variant="outlined" class="mr-1">Layer 1</v-btn>
-                  <v-btn variant="outlined">Layer 2</v-btn>
-                  <v-btn variant="outlined" class="ml-1">Layer 3</v-btn>
+                  <v-btn variant="outlined" size="x-small" class="mr-1">Layer 1</v-btn>
+                  <v-btn variant="outlined" size="x-small">Layer 2</v-btn>
+                  <v-btn variant="outlined" size="x-small" class="ml-1">Layer 3</v-btn>
                 </div>
 
-                <div class="tileset-wrapper">
-                  <img id="tileset-source" alt="tile">
+                <div class="tileset-wrapper text-center">
+                  <img :src="tilesetSource" id="tileset-source" alt="tile">
                   <div class="tile-selection"></div>
                 </div>
               </v-card>
@@ -48,7 +48,7 @@ export default {
     //tileset
     let tilesetWrapper = ref(null);
     let tilesetSelection = ref(null);
-    let tilesetSource = ref(null);
+    let tilesetSource = ref('');
 
     //menu tile
     let selection = ref([0, 0]);
@@ -76,11 +76,15 @@ export default {
       //tileset
       tilesetWrapper = document.querySelector('.tileset-wrapper');
       tilesetSelection = document.querySelector('.tileset-selection');
-      tilesetSource = document.querySelector('.tileset-source');
+      // tilesetSource = document.querySelector('.tileset-source');
+
+      //set tileset source
+      tilesetSource.value = 'https://assets.codepen.io/21542/TileEditorSpritesheet.2x_2.png';
     })
 
     return {
-      canvasSize
+      canvasSize,
+      tilesetSource
     }
 
   },

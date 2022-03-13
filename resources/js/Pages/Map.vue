@@ -50,11 +50,11 @@ export default {
     //tileset
     let tilesetImg = reactive(null);
     let tilesetWrapper = ref(null);
-    let tilesetSelection = ref(null);
+    let tilesetSelection = reactive(null);
     let tilesetSource = ref('');
 
     //menu tile
-    let selection = ref([0, 0]);
+    let selection = reactive([0, 0]);
 
     //mouse
     let isMouseDown = ref(false);
@@ -103,18 +103,50 @@ export default {
       return [Math.floor(mouseX / 32), Math.floor(mouseY / 32)];
     }
 
+    //Handler for placing new tiles on the map
+    function addTile(mouseEvent) {
+      const clicked = getCoordinates(event);
+      const key = clicked[0] + "-" + clicked[1];
+
+      if (mouseEvent.shiftKey) {
+          delete layers[currentLayer.value][key];
+      } else {
+          layers[currentLayer.value][key] = [selection[0], selection[1]];
+      }
+      draw();
+    }
+
     onMounted(() => {
       //canvas
       canvas = document.querySelector('canvas');
       ctx = canvas.getContext('2d');
       // colorRect(0, 0, canvas.width,canvas.height, 'black');
+      //Bind mouse events for painting (or removing) tiles on click/drag
+      canvas.addEventListener("mousedown", () => {
+        isMouseDown.value = true;
+      });
+      canvas.addEventListener("mouseup", () => {
+        isMouseDown.value = false;
+      });
+      canvas.addEventListener("mouseleave", () => {
+        isMouseDown.value = false;
+      });
+      canvas.addEventListener("mousedown", addTile);
+      canvas.addEventListener("mousemove", (event) => {
+        if (isMouseDown.value) {
+            addTile(event);
+        }
+      });
 
       //tileset
+      tilesetSelection = document.querySelector('.tile-selection');
       tilesetWrapper = document.querySelector('.tileset-wrapper');
+      //tileset mouse click
       tilesetWrapper.addEventListener('mousedown', event => {
-        console.log(getCoordinates(event));
+        selection = getCoordinates(event);
+        tilesetSelection.style.left = selection[0] * 32 + 'px';
+        tilesetSelection.style.top = selection[1] * 32 + 'px';
       });
-      tilesetSelection = document.querySelector('.tileset-selection');
       // tilesetSource = document.querySelector('.tileset-source');
 
       //set tileset source

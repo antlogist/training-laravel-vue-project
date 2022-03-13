@@ -6,9 +6,11 @@
             <v-col cols="12" sm="4">
               <v-card class="pa-2" outlined tile>
                 <div class="buttons-wrapper text-center mb-3">
-                  <v-btn variant="outlined" size="x-small" class="mr-1" @click="setLayer(2)">Top</v-btn>
-                  <v-btn variant="outlined" size="x-small" @click="setLayer(1)">Middle</v-btn>
-                  <v-btn variant="outlined" size="x-small" class="ml-1" @click="setLayer(0)">Bottom</v-btn>
+                  <v-btn :class="{'bg-grey': currentLayer === 2}" variant="outlined" size="x-small" class="mr-1" @click="setLayer(2)">Top</v-btn>
+                  <v-btn :class="{'bg-grey': currentLayer === 1}" variant="outlined" size="x-small" @click="setLayer(1)">Middle</v-btn>
+                  <v-btn :class="{'bg-grey': currentLayer === 0}" variant="outlined" size="x-small" class="ml-1" @click="setLayer(0)">Bottom</v-btn>
+
+                  <v-btn class="bg-error ml-5" variant="outlined" size="x-small" @click="clearCanvas()">Clear</v-btn>
                 </div>
 
                 <div class="text-center">
@@ -43,7 +45,7 @@ export default {
     let canvas = ref(null);
     let ctx = ref(null);
     let canvasSize = reactive({
-      height: 960,
+      height: 480,
       width: 960
     });
 
@@ -118,6 +120,11 @@ export default {
       draw();
     }
 
+    function clearCanvas() {
+      layers = [{},{},{}];
+      draw();
+    }
+
     onMounted(() => {
       //canvas
       canvas = document.querySelector('canvas');
@@ -161,7 +168,9 @@ export default {
     return {
       canvasSize,
       tilesetSource,
-      setLayer
+      currentLayer,
+      setLayer,
+      clearCanvas
     }
 
   },

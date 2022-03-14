@@ -39,7 +39,11 @@ Route::get('/dashboard', function () {
 
 Route::get('/notes',
     [\App\Http\Controllers\NoteController::class,
-    'show'])->name('notes');
+    'show'])->middleware(['auth', 'verified'])->name('notes');
+
+Route::get('/map',
+    [\App\Http\Controllers\MapController::class,
+    'show'])->middleware(['auth', 'verified'])->name('map');
 
 // Route::inertia('/welcome', 'Welcome');
 

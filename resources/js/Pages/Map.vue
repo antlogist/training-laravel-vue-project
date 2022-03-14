@@ -38,16 +38,20 @@ import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import { onMounted } from '@vue/runtime-core';
 import { ref, reactive } from 'vue';
 
+import useCanvas from '../composables/canvas';
+
 export default {
   setup() {
 
+    let { canvas, layers, ctx, canvasSize } = useCanvas();
+
     //canvas
-    let canvas = ref(null);
-    let ctx = ref(null);
-    let canvasSize = reactive({
-      height: 480,
-      width: 960
-    });
+    // let canvas = ref(null);
+    // let ctx = ref(null);
+    // let canvasSize = reactive({
+    //   height: 480,
+    //   width: 960
+    // });
 
     //tileset
     let tilesetImg = reactive(null);
@@ -66,7 +70,7 @@ export default {
     //bottom->middle->top
     //structure: 'x-y': ['tilesetX', 'tilesetY']
     //example: '1-1': [3, 4]
-    let layers = reactive([{},{},{}]);
+    // let layers = reactive([{},{},{}]);
 
     function colorRect(topLeftX,topLeftY, boxWidth,boxHeight, fillColor) {
       ctx.fillStyle = fillColor;

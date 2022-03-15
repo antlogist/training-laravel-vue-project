@@ -71,7 +71,9 @@ export default function useCanvas() {
   }
 
   function clearCanvas() {
-    layers = [{},{},{}];
+    layers.map((el, i) => {
+      layers[i] = {};
+    });
     draw();
   }
 
@@ -120,6 +122,7 @@ export default function useCanvas() {
     canvasSize,
     tilesetSource,
     currentLayer,
+    layers,
     setLayer,
     clearCanvas
   }

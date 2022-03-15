@@ -38,8 +38,12 @@ Route::get('/dashboard', function () {
 // })->middleware(['auth', 'verified'])->name('note');
 
 Route::get('/notes',
-    [\App\Http\Controllers\NoteController::class,
-    'show'])->name('notes');
+    [\App\Http\Controllers\NotesController::class,
+    'index'])->middleware(['auth', 'verified'])->name('notes');
+
+Route::get('/map',
+    [\App\Http\Controllers\MapController::class,
+    'show'])->middleware(['auth', 'verified'])->name('map');
 
 // Route::inertia('/welcome', 'Welcome');
 

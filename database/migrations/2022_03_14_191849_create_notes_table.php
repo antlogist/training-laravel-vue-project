@@ -23,8 +23,11 @@ class CreateNotesTable extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');
 
-            // $table->unsignedBigInteger('tile_id')->index()->nullable();
-            // $table->foreign('tile_id')->references('id')->on('tiles');
+            $table->unsignedBigInteger('category_id')->index()->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
+
+            $table->unsignedBigInteger('subcategory_id')->index()->nullable();
+            $table->foreign('subcategory_id')->references('id')->on('subcategories');
 
         });
     }

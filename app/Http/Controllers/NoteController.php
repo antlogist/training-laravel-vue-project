@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 
-class NotesController extends Controller
+class NoteController extends Controller
 {
     /**
      * Display a listing of the resource.

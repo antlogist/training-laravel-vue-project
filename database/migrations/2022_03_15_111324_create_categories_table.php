@@ -19,6 +19,8 @@ class CreateCategoriesTable extends Migration
 
             $table->string('title');
 
+            $table->string('slug');
+
             $table->unsignedBigInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');
         });

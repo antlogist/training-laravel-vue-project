@@ -38,7 +38,7 @@ Route::get('/dashboard', function () {
 // })->middleware(['auth', 'verified'])->name('note');
 
 Route::get('/notes',
-    [\App\Http\Controllers\NotesController::class,
+    [\App\Http\Controllers\NoteController::class,
     'index'])->middleware(['auth', 'verified'])->name('notes');
 
 Route::get('/map',

@@ -45,6 +45,10 @@ Route::get('/map',
     [\App\Http\Controllers\MapController::class,
     'show'])->middleware(['auth', 'verified'])->name('map');
 
+Route::get('/categories',
+    [\App\Http\Controllers\CategoryController::class,
+    'index'])->middleware(['auth', 'verified'])->name('categories');
+
 // Route::inertia('/welcome', 'Welcome');
 
 require __DIR__.'/auth.php';

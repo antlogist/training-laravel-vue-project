@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +18,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         return Inertia::render('CategoryList', [
             'title' => 'Category',
-            'categories' => Category::paginate(10)
+            'categories' => Category::where('user_id', $user->id)->paginate(10)
         ]);
     }
 

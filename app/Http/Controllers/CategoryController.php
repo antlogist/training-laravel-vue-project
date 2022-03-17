@@ -21,7 +21,7 @@ class CategoryController extends Controller
         $user = Auth::user();
         return Inertia::render('CategoryList', [
             'title' => 'Category',
-            'categories' => Category::where('user_id', $user->id)->paginate(10)
+            'categories' => Category::where('user_id', $user->id)->paginate(1)
         ]);
     }
 
@@ -88,6 +88,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->back();
     }
 }

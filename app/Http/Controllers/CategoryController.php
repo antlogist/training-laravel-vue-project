@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return Inertia::render('CategoryList', [
+        return Inertia::render('Categories/Index', [
             'title' => 'Category',
             'categories' => Category::where('user_id', $user->id)->paginate(1)
         ]);
@@ -32,7 +32,12 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+
+        $user = Auth::user();
+        return Inertia::render('Categories/Create', [
+            'title' => 'Category',
+            'categories' => Category::where('user_id', $user->id)->paginate(1)
+        ]);
     }
 
     /**

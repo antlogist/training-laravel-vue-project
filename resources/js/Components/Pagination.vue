@@ -1,15 +1,16 @@
 <template>
   <div class="text-center" v-if="pagesCount() > 1">
     <v-pagination
-      v-model="page"
+      v-model="pagination"
       :length="pagesCount()"
-      @update:modelValue="changePage(page)"
     ></v-pagination>
+          <!-- @update:modelValue="changePage(page)" -->
   </div>
 </template>
 
 <script>
 import { Inertia } from '@inertiajs/inertia'
+
   export default {
     props: {
       total: Number,
@@ -17,23 +18,33 @@ import { Inertia } from '@inertiajs/inertia'
       currentPage: Number,
       path: String
     },
+
     data () {
       return {
-        page: 1,
+        page: this.currentPage,
       }
     },
+
     methods: {
-      changePage(page) {
-        Inertia.visit(this.path + '?page=' + page, {
-          method: 'get',
-          replace: true,
-          preserveState: true
-        });
-      },
       pagesCount() {
         const count = Math.ceil(this.total / this.perPage);
         return count;
       }
     },
+
+    computed: {
+      pagination: {
+        get() {
+          return this.currentPage;
+        },
+        set(page) {
+          Inertia.visit(this.path + '?page=' + page, {
+            method: 'get',
+            replace: true,
+            preserveState: true
+          });
+        }
+      }
+    }
   }
 </script>

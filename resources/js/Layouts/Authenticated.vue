@@ -34,6 +34,7 @@
                 <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" value="dashboard" :href="route('dashboard')"></v-list-item>
                 <v-list-item prepend-icon="mdi-forum" title="Map" value="map" :href="route('map')"></v-list-item>
                 <v-list-item prepend-icon="mdi-forum" title="Notes" value="notes" :href="route('notes')"></v-list-item>
+                <v-list-item prepend-icon="mdi-forum" title="Categories" value="categories" :href="route('categories')"></v-list-item>
             </v-list>
 
         </v-navigation-drawer>

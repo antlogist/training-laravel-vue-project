@@ -45,6 +45,12 @@ Route::get('/map',
     [\App\Http\Controllers\MapController::class,
     'show'])->middleware(['auth', 'verified'])->name('map');
 
+Route::resource('/categories', \App\Http\Controllers\CategoryController::class)
+    ->middleware(['auth', 'verified'])->name('index', 'categories');
+
+// Route::resource('/categories', \App\Http\Controllers\CategoryController::class)->middleware(['auth', 'verified'])->name('categories');
+// Route::resource('posts', PostsController::class)->except('index', 'show');
+
 // Route::inertia('/welcome', 'Welcome');
 
 require __DIR__.'/auth.php';

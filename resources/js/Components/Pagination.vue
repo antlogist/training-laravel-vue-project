@@ -4,7 +4,6 @@
       v-model="pagination"
       :length="pagesCount()"
     ></v-pagination>
-          <!-- @update:modelValue="changePage(page)" -->
   </div>
 </template>
 

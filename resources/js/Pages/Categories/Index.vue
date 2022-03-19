@@ -5,36 +5,54 @@
         <Head :title="title" />
 
         <v-container>
+
             <h1>Category List</h1>
-            <div v-if="categories.total > 0">
 
-                <v-list-item two line v-for="category in categories.data" :key="category.id">
+            <v-row class="mt-5 mb-5" justify-md="center" no-gutters>
 
-                    <v-list-item-header>
-                        <v-list-item-title>{{ category.title }}</v-list-item-title>
-                        <v-list-item-subtitle>{{ category.slug }}</v-list-item-subtitle>
-                    </v-list-item-header>
+                <v-col md="8">
 
-                    <template v-slot:append>
-                        <v-list-item-avatar right>
-                            <v-btn variant="text" color="red lighten-1" icon="mdi-close" @click="destroy(category.id)"></v-btn>
-                        </v-list-item-avatar>
-                    </template>
+                    <v-text-field
+                        class="mt-5"
+                        label="Category"
+                        density="compact"
+                    ></v-text-field>
 
-                </v-list-item>
+                    <v-btn>Save</v-btn>
 
-                <Pagination
-                    :total='categories.total'
-                    :perPage='categories.per_page'
-                    :path='categories.path'
-                    :currentPage='categories.current_page'>
-                </Pagination>
+                    <div class="mt-5" v-if="categories.total > 0">
 
-            </div>
+                        <v-list-item two line v-for="category in categories.data" :key="category.id">
 
-            <div class="my-5" v-else>
-                <p>No categories found</p>
-            </div>
+                            <v-list-item-header>
+                                <v-list-item-title>{{ category.title }}</v-list-item-title>
+                                <v-list-item-subtitle>{{ category.slug }}</v-list-item-subtitle>
+                            </v-list-item-header>
+
+                            <template v-slot:append>
+                                <v-list-item-avatar right>
+                                    <v-btn variant="text" color="red lighten-1" icon="mdi-close" @click="destroy(category.id)"></v-btn>
+                                </v-list-item-avatar>
+                            </template>
+
+                        </v-list-item>
+
+                        <Pagination
+                            :total='categories.total'
+                            :perPage='categories.per_page'
+                            :path='categories.path'
+                            :currentPage='categories.current_page'>
+                        </Pagination>
+
+                    </div>
+
+                    <div class="my-5" v-else>
+                        <p>No categories found</p>
+                    </div>
+
+                </v-col>
+
+            </v-row>
 
         </v-container>
     </BreezeAuthenticatedLayout>

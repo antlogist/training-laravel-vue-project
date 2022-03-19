@@ -1,10 +1,9 @@
 <template>
-  <div class="text-center" v-if="pagesCount() > 1">
+  <div class="text-center mt-5" v-if="pagesCount() > 1">
     <v-pagination
       v-model="pagination"
       :length="pagesCount()"
     ></v-pagination>
-          <!-- @update:modelValue="changePage(page)" -->
   </div>
 </template>
 

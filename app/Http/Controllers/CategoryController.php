@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Requests\StoreCategoryRequest;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -19,7 +21,7 @@ class CategoryController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return Inertia::render('CategoryList', [
+        return Inertia::render('Categories/Index', [
             'title' => 'Category',
             'categories' => Category::where('user_id', $user->id)->paginate(1)
         ]);
@@ -32,7 +34,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Categories/Create', [
+            'title' => 'Category',
+        ]);
     }
 
     /**
@@ -41,9 +45,20 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $insert = [
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'user_id' => Auth::user()->id
+        ];
+
+        Category::create($insert);
+
+        return redirect()->route('categories');
+
     }
 
     /**

@@ -12,13 +12,7 @@
 
                 <v-col md="8">
 
-                    <v-text-field
-                        class="mt-5"
-                        label="Category"
-                        density="compact"
-                    ></v-text-field>
-
-                    <v-btn>Save</v-btn>
+                    <v-btn @click="goToPage(pageCreate)">Create</v-btn>
 
                     <div class="mt-5" v-if="categories.total > 0">
 
@@ -75,6 +69,11 @@ export default {
         Head,
         Pagination
     },
+    data() {
+        return {
+            pageCreate: 'categories/create'
+        }
+    },
     methods: {
         destroy(id) {
             if(confirm('Do you really want to delete this category?')) {
@@ -86,13 +85,17 @@ export default {
                     this.categories.data.length === 1 &&
                     this.categories.total > 1
                    ) {
-                    Inertia.visit(this.categories.path + '?page=' + (this.categories.current_page - 1), {
-                        method: 'get',
-                        replace: true,
-                        preserveState: true
-                    });
+
+                    this.goToPage(this.categories.path + '?page=' + (this.categories.current_page - 1));
                 }
             }
+        },
+        goToPage(page) {
+            Inertia.visit(page, {
+                method: 'get',
+                replace: false,
+                preserveState: true
+            });
         }
     }
 }

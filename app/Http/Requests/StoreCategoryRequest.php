@@ -24,9 +24,7 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:2|max:100',
-            'slug' => 'required|min:2|max:100',
-            'user_id' => 'required|ineger|size:10'
+            'title' => 'required|unique:categories|min:2|max:70',
         ];
     }
 }

@@ -17,6 +17,7 @@
                         label="Category"
                         density="compact"
                         v-model="form.title"
+                        :error-messages="errors.title"
                     ></v-text-field>
 
                     <v-btn type="submit" class="mr-1">Add</v-btn>
@@ -40,6 +41,7 @@ import { Inertia } from '@inertiajs/inertia';
 export default {
     props: {
         title: String,
+        errors: Object
     },
     components: {
         BreezeAuthenticatedLayout,

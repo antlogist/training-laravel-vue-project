@@ -97,9 +97,19 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(StoreCategoryRequest $request, Category $category)
     {
-        //
+
+        $validated = $request->validated();
+
+        $insert = [
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+        ];
+
+        $category->update($insert);
+
+        return redirect()->route('categories');
     }
 
     /**

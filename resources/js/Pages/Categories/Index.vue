@@ -12,7 +12,7 @@
 
                 <v-col md="8">
 
-                    <v-btn @click="goToPage(pageCreate)">Create</v-btn>
+                    <v-btn @click="goToPage(`categories/create`)">Create</v-btn>
 
                     <div class="mt-5" v-if="categories.meta.total > 0">
 
@@ -21,9 +21,13 @@
                             <v-list-item-header>
                                 <v-list-item-title>{{ category.title }}</v-list-item-title>
                                 <v-list-item-subtitle>{{ category.slug }}</v-list-item-subtitle>
+                                <v-list-item-subtitle>id: {{ category.id }}</v-list-item-subtitle>
                             </v-list-item-header>
 
                             <template v-slot:append>
+                                <v-list-item-avatar right>
+                                    <v-btn variant="text" color="blue lighten-1" icon="mdi-pen" @click="goToPage(`categories/${category.id}/edit`)"></v-btn>
+                                </v-list-item-avatar>
                                 <v-list-item-avatar right>
                                     <v-btn variant="text" color="red lighten-1" icon="mdi-close" @click="destroy(category.id)"></v-btn>
                                 </v-list-item-avatar>
@@ -69,11 +73,6 @@ export default {
         Head,
         Pagination
     },
-    data() {
-        return {
-            pageCreate: 'categories/create'
-        }
-    },
     methods: {
         destroy(id) {
             if(confirm('Do you really want to delete this category?')) {
@@ -90,11 +89,12 @@ export default {
                 }
             }
         },
-        goToPage(page) {
+        goToPage(page, data = {}) {
             Inertia.visit(page, {
                 method: 'get',
                 replace: false,
-                preserveState: true
+                preserveState: true,
+                data: data
             });
         }
     }

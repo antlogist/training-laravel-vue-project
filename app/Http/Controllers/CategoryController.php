@@ -23,7 +23,7 @@ class CategoryController extends Controller
         $user = Auth::user();
         return Inertia::render('Categories/Index', [
             'title' => 'Category',
-            'categories' => Category::where('user_id', $user->id)->paginate(1)
+            'categories' => Category::where('user_id', $user->id)->latest()->paginate(10)
         ]);
     }
 

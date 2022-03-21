@@ -25,7 +25,7 @@ class CategoryController extends Controller
             'title' => 'Category',
             'categories' => function() {
                 return CategoryIndexResource::collection(
-                    Category::where('user_id', Auth::user()->id)->latest()->paginate(10)
+                    $user = auth()->user()->categories()->latest()->paginate(10)
                 );
             }
         ]);

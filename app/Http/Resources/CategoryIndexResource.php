@@ -18,7 +18,6 @@ class CategoryIndexResource extends JsonResource
             'id'          => $this->id,
             'title'       => $this->title,
             'slug'        => $this->slug,
-            'user_id'     => $this->user_id
         ];
     }
 }

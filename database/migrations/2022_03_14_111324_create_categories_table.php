@@ -20,8 +20,10 @@ class CreateCategoriesTable extends Migration
             $table->string('title', 70);
             $table->string('slug', 100);
 
-            $table->unsignedBigInteger('user_id')->index();
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->unsignedBigInteger('user_id')->index();
+            // $table->foreign('user_id')->references('id')->on('users');
+
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 

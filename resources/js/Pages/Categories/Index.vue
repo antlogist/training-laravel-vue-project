@@ -14,7 +14,7 @@
 
                     <v-btn @click="goToPage(pageCreate)">Create</v-btn>
 
-                    <div class="mt-5" v-if="categories.total > 0">
+                    <div class="mt-5" v-if="categories.meta.total > 0">
 
                         <v-list-item two line v-for="category in categories.data" :key="category.id">
 
@@ -32,10 +32,10 @@
                         </v-list-item>
 
                         <Pagination
-                            :total='categories.total'
-                            :perPage='categories.per_page'
-                            :path='categories.path'
-                            :currentPage='categories.current_page'>
+                            :total='categories.meta.total'
+                            :perPage='categories.meta.per_page'
+                            :path='categories.meta.path'
+                            :currentPage='categories.meta.current_page'>
                         </Pagination>
 
                     </div>
@@ -81,12 +81,12 @@ export default {
 
                 //If last item on last page
                 if(
-                    this.categories.next_page_url === null &&
+                    this.categories.meta.next_page_url === null &&
                     this.categories.data.length === 1 &&
-                    this.categories.total > 1
+                    this.categories.meta.total > 1
                    ) {
 
-                    this.goToPage(this.categories.path + '?page=' + (this.categories.current_page - 1));
+                    this.goToPage(this.categories.meta.path + '?page=' + (this.categories.meta.current_page - 1));
                 }
             }
         },

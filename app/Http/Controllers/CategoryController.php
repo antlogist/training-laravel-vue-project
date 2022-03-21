@@ -10,6 +10,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Support\Str;
+use App\Http\Resources\CategoryIndexResource;
 
 class CategoryController extends Controller
 {
@@ -20,10 +21,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         return Inertia::render('Categories/Index', [
             'title' => 'Category',
-            'categories' => Category::where('user_id', $user->id)->paginate(1)
+            'categories' => function() {
+                return CategoryIndexResource::collection(
+                    Category::where('user_id', Auth::user()->id)->latest()->paginate(10)
+                );
+            }
         ]);
     }
 
@@ -80,7 +84,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return Inertia::render('Categories/Edit', [
+            'title' => 'Category',
+            'category' => $category
+        ]);
     }
 
     /**

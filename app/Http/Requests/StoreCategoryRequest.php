@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:categories|min:2|max:70',
+            'title' => 'required|min:2|max:70|unique:categories,title,NULL,id,user_id,' . Auth::user()->id
         ];
     }
 }

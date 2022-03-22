@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
@@ -56,7 +55,7 @@ class CategoryController extends Controller
         $insert = [
             'title' => $request->title,
             'slug' => Str::slug($request->title),
-            'user_id' => Auth::user()->id
+            'user_id' => auth()->user()->id
         ];
 
         Category::create($insert);

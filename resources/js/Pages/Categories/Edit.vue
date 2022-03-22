@@ -10,7 +10,7 @@
 
             <v-row class="mt-5 mb-5" justify-md="center" no-gutters>
 
-                <v-col md="8">
+                <v-col md="10">
                   <v-form @submit.prevent="submit">
                     <v-text-field
                         class="mt-5"
@@ -56,7 +56,7 @@ export default {
       });
 
       function submit() {
-        Inertia.put(`/categories/${props.category.id}`, form)
+        Inertia.put(`/categories/${props.category.slug}`, form)
       }
 
       function goToPage(page) {

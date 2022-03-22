@@ -4,9 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\Category\CategoryShowResource;
 
 class Category extends Model
 {
     use HasFactory;
     protected $fillable = ['title', 'slug', 'user_id'];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public function showResource()
+    {
+        return new CategoryShowResource($this);
+    }
 }

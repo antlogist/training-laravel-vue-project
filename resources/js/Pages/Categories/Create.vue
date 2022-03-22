@@ -6,11 +6,11 @@
 
         <v-container>
 
-            <h1>Category List</h1>
+            <h1>Create Category</h1>
 
             <v-row class="mt-5 mb-5" justify-md="center" no-gutters>
 
-                <v-col md="8">
+                <v-col md="10">
                   <v-form @submit.prevent="submit">
                     <v-text-field
                         class="mt-5"

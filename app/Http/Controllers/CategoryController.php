@@ -9,7 +9,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Support\Str;
-use App\Http\Resources\CategoryIndexResource;
+use App\Http\Resources\Category\CategoryIndexResource;
 
 class CategoryController extends Controller
 {
@@ -24,7 +24,7 @@ class CategoryController extends Controller
             'title' => 'Category',
             'categories' => function() {
                 return CategoryIndexResource::collection(
-                    $user = auth()->user()->categories()->latest()->paginate(10)
+                    $user = auth()->user()->categories()->latest()->paginate(1)
                 );
             }
         ]);
@@ -70,9 +70,13 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
-    {
-        //
+
+    public function show($slug) {
+        // dd($slug);
+        return Inertia::render('Categories/Show', [
+            'title' => 'Category',
+            'category' => Category::where('slug', $slug)->where('user_id', auth()->user()->id)->first()->showResource()
+        ]);
     }
 
     /**
@@ -81,11 +85,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($slug)
     {
         return Inertia::render('Categories/Edit', [
             'title' => 'Category',
-            'category' => $category
+            // 'category' => $category
+            'category' => Category::where('slug', $slug)->where('user_id', auth()->user()->id)->first()
         ]);
     }
 
@@ -98,7 +103,6 @@ class CategoryController extends Controller
      */
     public function update(StoreCategoryRequest $request, Category $category)
     {
-
         $validated = $request->validated();
 
         $insert = [
@@ -106,7 +110,7 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->title),
         ];
 
-        $category->update($insert);
+        $category->where('id', $request->id)->where('user_id', auth()->user()->id)->first()->update($insert);
 
         return redirect()->route('categories');
     }
@@ -117,9 +121,9 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($slug)
     {
-        $category->delete();
+        Category::where('slug', $slug)->where('user_id', auth()->user()->id)->first()->delete();
 
         return redirect()->back();
     }

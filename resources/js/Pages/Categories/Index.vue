@@ -10,7 +10,7 @@
 
             <v-row class="mt-5 mb-5" justify-md="center" no-gutters>
 
-                <v-col md="8">
+                <v-col md="10">
 
                     <v-btn @click="goToPage(`categories/create`)">Create</v-btn>
 
@@ -26,10 +26,10 @@
 
                             <template v-slot:append>
                                 <v-list-item-avatar right>
-                                    <v-btn variant="text" color="blue lighten-1" icon="mdi-pen" @click="goToPage(`categories/${category.id}/edit`)"></v-btn>
+                                    <v-btn variant="text" color="blue lighten-1" icon="mdi-pen" @click="goToPage(`categories/${category.slug}/edit`)"></v-btn>
                                 </v-list-item-avatar>
                                 <v-list-item-avatar right>
-                                    <v-btn variant="text" color="red lighten-1" icon="mdi-close" @click="destroy(category.id)"></v-btn>
+                                    <v-btn variant="text" color="red lighten-1" icon="mdi-close" @click="destroy(category.slug)"></v-btn>
                                 </v-list-item-avatar>
                             </template>
 
@@ -80,11 +80,10 @@ export default {
 
                 //If last item on last page
                 if(
-                    this.categories.meta.next_page_url === null &&
+                    this.categories.links.next === null &&
                     this.categories.data.length === 1 &&
                     this.categories.meta.total > 1
                    ) {
-
                     this.goToPage(this.categories.meta.path + '?page=' + (this.categories.meta.current_page - 1));
                 }
             }

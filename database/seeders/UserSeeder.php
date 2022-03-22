@@ -14,12 +14,19 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::factory()->create([
+        $user = User::factory()->count(2)->sequence([
           'name' => 'Test',
           'email' => 'test@test.com',
           'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        ]);
+        ],
+        [
+          'name' => 'Test2',
+          'email' => 'test2@test.com',
+          'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        ],
+      )->create();
 
-        User::factory(9)->create();
+
+        User::factory(8)->create();
     }
 }

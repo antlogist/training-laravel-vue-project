@@ -6,34 +6,54 @@
 
         <v-container>
 
-            <h1>Category List</h1>
-
             <v-row class="mt-5 mb-5" justify-md="center" no-gutters>
 
-                <v-col md="10">
+                <v-col md="8">
 
-                    <v-btn @click="goToPage(`categories/create`)">Create</v-btn>
+                    <h1>Category List</h1>
 
-                    <div class="mt-5" v-if="categories.meta.total > 0">
+                    <div class="text-right mt-5 mb-5">
 
-                        <v-list-item two line v-for="category in categories.data" :key="category.id">
+                        <v-btn
+                            class="mr-2"
+                            size="small"
+                            icon="mdi-magnify"
+                            color="grey">
+                        </v-btn>
 
-                            <v-list-item-header>
-                                <v-list-item-title>{{ category.title }}</v-list-item-title>
-                                <v-list-item-subtitle>{{ category.slug }}</v-list-item-subtitle>
-                                <v-list-item-subtitle>id: {{ category.id }}</v-list-item-subtitle>
-                            </v-list-item-header>
+                        <v-btn
+                            @click="goToPage(`categories/create`)"
+                            size="small"
+                            icon="mdi-plus"
+                            color="grey">
+                        </v-btn>
 
-                            <template v-slot:append>
-                                <v-list-item-avatar right>
-                                    <v-btn variant="text" color="blue lighten-1" icon="mdi-pen" @click="goToPage(`categories/${category.slug}/edit`)"></v-btn>
-                                </v-list-item-avatar>
-                                <v-list-item-avatar right>
-                                    <v-btn variant="text" color="red lighten-1" icon="mdi-close" @click="destroy(category.slug)"></v-btn>
-                                </v-list-item-avatar>
-                            </template>
+                    </div>
 
-                        </v-list-item>
+                    <div v-if="categories.meta.total > 0">
+                        <v-list>
+                            <v-list-item elevation="1" three-line v-for="category in categories.data" :key="category.id">
+
+                                <v-list-item-header>
+                                    <v-list-item-title>{{ category.title }}</v-list-item-title>
+                                    <v-list-item-subtitle>slug: {{ category.slug }}</v-list-item-subtitle>
+                                    <v-list-item-subtitle>id: {{ category.id }}</v-list-item-subtitle>
+                                </v-list-item-header>
+
+                                <template v-slot:append>
+                                    <v-list-item-avatar right>
+                                        <v-btn size="x-small" color="grey lighten-1" icon="mdi-eye" @click="goToPage(`categories/${category.slug}`)"></v-btn>
+                                    </v-list-item-avatar>
+                                    <v-list-item-avatar right>
+                                        <v-btn size="x-small" color="grey lighten-1" icon="mdi-pen" @click="goToPage(`categories/${category.slug}/edit`)"></v-btn>
+                                    </v-list-item-avatar>
+                                    <v-list-item-avatar right>
+                                        <v-btn size="x-small" color="grey lighten-1" icon="mdi-close" @click="destroy(category.slug)"></v-btn>
+                                    </v-list-item-avatar>
+                                </template>
+
+                            </v-list-item>
+                        </v-list>
 
                         <Pagination
                             :total='categories.meta.total'

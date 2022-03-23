@@ -24,7 +24,7 @@ class CategoryController extends Controller
             'title' => 'Category',
             'categories' => function() {
                 return CategoryIndexResource::collection(
-                    $user = auth()->user()->categories()->latest()->paginate(1)
+                    $user = auth()->user()->categories()->latest()->paginate(10)
                 );
             }
         ]);
@@ -89,8 +89,7 @@ class CategoryController extends Controller
     {
         return Inertia::render('Categories/Edit', [
             'title' => 'Category',
-            // 'category' => $category
-            'category' => Category::where('slug', $slug)->where('user_id', auth()->user()->id)->first()
+            'category' => Category::where('slug', $slug)->where('user_id', auth()->user()->id)->first()->showResource()
         ]);
     }
 

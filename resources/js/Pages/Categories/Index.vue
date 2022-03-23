@@ -15,7 +15,7 @@
                     <div class="text-right mt-5 mb-5">
 
                         <v-btn
-                            class="mr-2"
+                            class="mr-3"
                             size="small"
                             icon="mdi-magnify"
                             color="grey">
@@ -41,15 +41,34 @@
                                 </v-list-item-header>
 
                                 <template v-slot:append>
+
                                     <v-list-item-avatar right>
-                                        <v-btn size="x-small" color="grey lighten-1" icon="mdi-eye" @click="goToPage(`categories/${category.slug}`)"></v-btn>
+                                        <v-btn
+                                            size="x-small"
+                                            color="grey lighten-1"
+                                            icon="mdi-eye"
+                                            @click="goToPage(`categories/${category.slug}`)">
+                                        </v-btn>
                                     </v-list-item-avatar>
+
                                     <v-list-item-avatar right>
-                                        <v-btn size="x-small" color="grey lighten-1" icon="mdi-pen" @click="goToPage(`categories/${category.slug}/edit`)"></v-btn>
+                                        <v-btn
+                                            size="x-small"
+                                            color="grey lighten-1"
+                                            icon="mdi-pen"
+                                            @click="goToPage(`categories/${category.slug}/edit`)">
+                                        </v-btn>
                                     </v-list-item-avatar>
+
                                     <v-list-item-avatar right>
-                                        <v-btn size="x-small" color="grey lighten-1" icon="mdi-close" @click="destroy(category.slug)"></v-btn>
+                                        <v-btn
+                                            size="x-small"
+                                            color="grey lighten-1"
+                                            icon="mdi-close
+                                            " @click="destroy(category.slug)">
+                                        </v-btn>
                                     </v-list-item-avatar>
+
                                 </template>
 
                             </v-list-item>

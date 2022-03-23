@@ -6,11 +6,12 @@
 
         <v-container>
 
-            <h1>Edit Category</h1>
-
             <v-row class="mt-5 mb-5" justify-md="center" no-gutters>
 
-                <v-col md="10">
+                <v-col md="8">
+
+                  <h1>Edit Category</h1>
+
                   <v-form @submit.prevent="submit">
                     <v-text-field
                         class="mt-5"
@@ -20,9 +21,25 @@
                         :error-messages="errors.title"
                     ></v-text-field>
 
-                    <v-btn type="submit" class="mr-1">Update</v-btn>
-                    <v-btn @click="goToPage('/categories')">Back</v-btn>
+                    <div class="mt-5 text-right">
+                      <v-btn
+                        class="mr-3"
+                        icon="mdi-format-list-bulleted"
+                        size="small"
+                        color="grey"
+                        @click="goToPage('/categories')">
+                      </v-btn>
+
+                      <v-btn
+                        icon="mdi-content-save"
+                        size="small"
+                        color="grey"
+                        type="submit">
+                      </v-btn>
+                    </div>
+
                   </v-form>
+
                 </v-col>
 
             </v-row>
@@ -51,12 +68,12 @@ export default {
     setup(props) {
 
       const form = reactive({
-        title: props.category.title,
-        id: props.category.id
+        title: props.category.data.title,
+        id: props.category.data.id
       });
 
       function submit() {
-        Inertia.put(`/categories/${props.category.slug}`, form)
+        Inertia.put(`/categories/${props.category.data.slug}`, form)
       }
 
       function goToPage(page) {

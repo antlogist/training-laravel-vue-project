@@ -20,4 +20,8 @@ class Category extends Model
     {
         return new CategoryShowResource($this);
     }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

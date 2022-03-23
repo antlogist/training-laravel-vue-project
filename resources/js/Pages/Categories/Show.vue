@@ -10,34 +10,20 @@
 
                 <v-col md="8">
 
-                  <h1>Create Category</h1>
-
-                  <v-form @submit.prevent="submit">
-                    <v-text-field
-                        class="mt-5"
-                        label="Category"
-                        density="compact"
-                        v-model="form.title"
-                        :error-messages="errors.title"
-                    ></v-text-field>
+                  <h1>Category: {{ category.data.title }}</h1>
+                  <small>{{ category.data.slug }}</small>
 
                     <div class="mt-5 text-right">
+
                       <v-btn
-                        class="mr-3"
                         icon="mdi-format-list-bulleted"
                         size="small"
                         color="grey"
                         @click="goToPage('/categories')">
                       </v-btn>
 
-                      <v-btn
-                        icon="mdi-content-save"
-                        size="small"
-                        color="grey"
-                        type="submit">
-                      </v-btn>
                     </div>
-                  </v-form>
+
                 </v-col>
 
             </v-row>
@@ -49,28 +35,19 @@
 
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import { reactive } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 
 export default {
     props: {
         title: String,
-        errors: Object
+        category: Object
     },
     components: {
         BreezeAuthenticatedLayout,
         Head,
     },
     setup() {
-
-      const form = reactive({
-        title: null,
-      });
-
-      function submit() {
-        Inertia.post('/categories', form)
-      }
 
       function goToPage(page) {
         Inertia.visit(page, {
@@ -81,8 +58,6 @@ export default {
       }
 
       return {
-        form,
-        submit,
         goToPage
       }
     }

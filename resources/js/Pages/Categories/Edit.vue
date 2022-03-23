@@ -24,7 +24,7 @@
                     <div class="mt-5 text-right">
                       <v-btn
                         class="mr-3"
-                        icon="mdi-arrow-left"
+                        icon="mdi-format-list-bulleted"
                         size="small"
                         color="grey"
                         @click="goToPage('/categories')">

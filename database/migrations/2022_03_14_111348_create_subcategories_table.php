@@ -20,11 +20,13 @@ class CreateSubcategoriesTable extends Migration
             $table->string('title');
             $table->string('slug');
 
-            $table->unsignedBigInteger('category_id')->index()->nullable();
-            $table->foreign('category_id')->references('id')->on('categories')->nullable();
+            // $table->unsignedBigInteger('category_id')->index()->nullable();
+            // $table->foreign('category_id')->references('id')->on('categories')->nullable();
+            $table->foreignId('category_id')->constrained()->nullable();
 
-            $table->unsignedBigInteger('user_id')->index();
-            $table->foreign('user_id')->references('id')->on('users');
+            // $table->unsignedBigInteger('user_id')->index();
+            // $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained();
 
         });
     }

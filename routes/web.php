@@ -48,6 +48,9 @@ Route::get('/map',
 Route::resource('/categories', \App\Http\Controllers\CategoryController::class)
     ->middleware(['auth', 'verified'])->name('index', 'categories');
 
+Route::resource('/subcategories', \App\Http\Controllers\SubcategoryController::class)
+    ->middleware(['auth', 'verified'])->name('index', 'subcategories');
+
 // Route::resource('/categories', \App\Http\Controllers\CategoryController::class)->middleware(['auth', 'verified'])->name('categories');
 // Route::resource('posts', PostsController::class)->except('index', 'show');
 

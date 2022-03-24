@@ -3,6 +3,8 @@
 namespace App\Http\Resources\Subcategory;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Category\CategoryIndexResource;
+use App\Models\Category;
 
 class SubcategoryIndexResource extends JsonResource
 {
@@ -19,6 +21,7 @@ class SubcategoryIndexResource extends JsonResource
             'category_id' => $this->category_id,
             'title'       => $this->title,
             'slug'        => $this->slug,
+            'category'    => Category::where('id', $this->category_id)->where('user_id', auth()->user()->id)->first()
         ];
     }
 }

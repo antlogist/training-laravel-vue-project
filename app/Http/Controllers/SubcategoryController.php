@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subcategory;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+use App\Http\Resources\Subcategory\SubcategoryIndexResource;
 
 class SubcategoryController extends Controller
 {
@@ -14,7 +19,14 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Subcategories/Index', [
+            'title' => 'Subcategory',
+            'subcategories' => function() {
+                return SubcategoryIndexResource::collection(
+                    $user = auth()->user()->subcategories()->latest()->paginate(10)
+                );
+            }
+        ]);
     }
 
     /**

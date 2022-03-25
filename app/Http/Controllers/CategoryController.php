@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Route;
-use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Support\Str;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\Category\CategoryIndexResource;
 
 class CategoryController extends Controller

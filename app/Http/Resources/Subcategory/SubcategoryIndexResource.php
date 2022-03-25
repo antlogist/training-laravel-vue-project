@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Subcategory;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Category\CategoryShowResource;
 use App\Models\Category;
 
 class SubcategoryIndexResource extends JsonResource

@@ -31,10 +31,11 @@
             <v-divider></v-divider>
 
             <v-list density="compact" nav>
-                <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" value="dashboard" :href="route('dashboard')"></v-list-item>
-                <v-list-item prepend-icon="mdi-forum" title="Map" value="map" :href="route('map')"></v-list-item>
-                <v-list-item prepend-icon="mdi-forum" title="Notes" value="notes" :href="route('notes')"></v-list-item>
-                <v-list-item prepend-icon="mdi-forum" title="Categories" value="categories" :href="route('categories')"></v-list-item>
+                <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" @click="goToPage('dashboard')"></v-list-item>
+                <v-list-item prepend-icon="mdi-forum" title="Map" @click="goToPage('map')"></v-list-item>
+                <v-list-item prepend-icon="mdi-forum" title="Notes" @click="goToPage('notes')"></v-list-item>
+                <v-list-item prepend-icon="mdi-forum" title="Categories" @click="goToPage('categories')"></v-list-item>
+                <v-list-item prepend-icon="mdi-forum" title="Subcategories" @click="goToPage('subcategories')"></v-list-item>
             </v-list>
 
         </v-navigation-drawer>
@@ -48,6 +49,7 @@
 
 <script>
 import { Link } from '@inertiajs/inertia-vue3';
+import { Inertia } from '@inertiajs/inertia';
 
 export default {
     components: {
@@ -59,5 +61,13 @@ export default {
             drawer: null,
         }
     },
+    methods: {
+        goToPage(page) {
+            Inertia.visit(page, {
+                method: 'get',
+                replace: true,
+            });
+        }
+    }
 }
 </script>

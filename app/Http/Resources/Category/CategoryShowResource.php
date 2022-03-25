@@ -3,6 +3,9 @@
 namespace App\Http\Resources\Category;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\Subcategory;
+use App\Models\Category;
+use App\Http\Resources\Subcategory\SubcategoryByCategoryShowResource;
 
 class CategoryShowResource extends JsonResource
 {
@@ -18,6 +21,9 @@ class CategoryShowResource extends JsonResource
             'id'          => $this->id,
             'title'       => $this->title,
             'slug'        => $this->slug,
+            'subcategories' => SubcategoryByCategoryShowResource::collection(
+                Category::find($this->id)->subcategories->where('user_id', auth()->user()->id)
+            )
         ];
     }
 }

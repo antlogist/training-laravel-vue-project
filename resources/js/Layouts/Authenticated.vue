@@ -31,11 +31,11 @@
             <v-divider></v-divider>
 
             <v-list density="compact" nav>
-                <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" @click="goToPage('dashboard')"></v-list-item>
-                <v-list-item prepend-icon="mdi-forum" title="Map" @click="goToPage('map')"></v-list-item>
-                <v-list-item prepend-icon="mdi-forum" title="Notes" @click="goToPage('notes')"></v-list-item>
-                <v-list-item prepend-icon="mdi-forum" title="Categories" @click="goToPage('categories')"></v-list-item>
-                <v-list-item prepend-icon="mdi-forum" title="Subcategories" @click="goToPage('subcategories')"></v-list-item>
+                <v-list-item prepend-icon="mdi-view-dashboard" title="Dashboard" @click="goToPage('/dashboard')"></v-list-item>
+                <v-list-item prepend-icon="mdi-forum" title="Map" @click="goToPage('/map')"></v-list-item>
+                <v-list-item prepend-icon="mdi-forum" title="Notes" @click="goToPage('/notes')"></v-list-item>
+                <v-list-item prepend-icon="mdi-forum" title="Categories" @click="goToPage('/categories')"></v-list-item>
+                <v-list-item prepend-icon="mdi-forum" title="Subcategories" @click="goToPage('/subcategories')"></v-list-item>
             </v-list>
 
         </v-navigation-drawer>

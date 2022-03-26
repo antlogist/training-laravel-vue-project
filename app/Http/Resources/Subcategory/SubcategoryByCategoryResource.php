@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Category;
+namespace App\Http\Resources\Subcategory;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Subcategory\SubcategoryByCategoryResource;
 
-class CategoryIndexResource extends JsonResource
+class SubcategoryByCategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +18,6 @@ class CategoryIndexResource extends JsonResource
             'id'          => $this->id,
             'title'       => $this->title,
             'slug'        => $this->slug,
-            // 'subcategories' => SubcategoryByCategoryResource::collection($this->subcategories)
         ];
     }
 }

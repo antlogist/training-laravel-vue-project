@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Category;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Subcategory\SubcategoryByCategoryResource;
 
 class CategoryIndexResource extends JsonResource
 {
@@ -18,6 +19,7 @@ class CategoryIndexResource extends JsonResource
             'id'          => $this->id,
             'title'       => $this->title,
             'slug'        => $this->slug,
+            // 'subcategories' => SubcategoryByCategoryResource::collection($this->subcategories)
         ];
     }
 }

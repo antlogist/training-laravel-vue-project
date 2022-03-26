@@ -7,6 +7,8 @@ use Inertia\Inertia;
 use Illuminate\Support\Str;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\Category\CategoryIndexResource;
+use App\Http\Resources\Category\CategoryShowResource;
+use App\Http\Resources\Subcategory\SubcategoryByCategoryResource;
 
 class CategoryController extends Controller
 {
@@ -21,7 +23,7 @@ class CategoryController extends Controller
             'title' => 'Category',
             'categories' => function() {
                 return CategoryIndexResource::collection(
-                    $user = auth()->user()->categories()->latest()->paginate(10)
+                    $categories = auth()->user()->categories()->latest()->paginate(10)
                 );
             }
         ]);
@@ -69,10 +71,28 @@ class CategoryController extends Controller
      */
 
     public function show($slug) {
-        // dd($slug);
+        $category = new CategoryShowResource(
+            Category::where('slug', $slug)->
+            where('user_id', auth()->user()->id)->
+            with('subcategories')->
+            firstOrFail()
+        );
+
+        $id = $category->id;
+
+        $subcategories = SubcategoryByCategoryResource::collection(
+            Category::
+            findOrFail($id)->
+            subcategories()->
+            // where('category_id', $id)->
+            // where('user_id', auth()->user()->id)->
+            latest()->
+            paginate(10)
+        );
+
         return Inertia::render('Categories/Show', [
-            'title' => 'Category',
-            'category' => Category::where('slug', $slug)->where('user_id', auth()->user()->id)->first()->showResource()
+            'category' => $category,
+            'subcategories' => $subcategories
         ]);
     }
 

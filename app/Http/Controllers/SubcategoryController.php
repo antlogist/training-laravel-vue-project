@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use App\Http\Requests\StoreSubcategoryRequest;
+use App\Http\Resources\Category\CategoryIndexResource;
 use App\Http\Resources\Subcategory\SubcategoryIndexResource;
 
 class SubcategoryController extends Controller
@@ -36,7 +38,14 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Subcategories/Create', [
+            'title' => 'Subcategory',
+            'categories' => function() {
+                return CategoryIndexResource::collection(
+                    $categories = auth()->user()->categories()->get()->sortBy('title')
+                );
+            }
+        ]);
     }
 
     /**
@@ -45,9 +54,20 @@ class SubcategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSubcategoryRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $insert = [
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'user_id' => auth()->user()->id,
+            'category_id' => $request->category_id
+        ];
+
+        Category::create($insert);
+
+        return redirect()->route('categories');
     }
 
     /**

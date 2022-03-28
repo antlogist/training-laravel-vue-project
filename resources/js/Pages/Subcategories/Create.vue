@@ -16,21 +16,19 @@
                       class="mt-5"
                       label="Subcategory"
                       density="compact"
-                      v-model="form.title"
+                      v-model.lazy="form.title"
                       :error-messages="errors.title"
                     ></v-text-field>
 
                     <v-autocomplete
-                      v-model="categoryInput"
-                      :items="categories.data"
-                      item-text="title"
+                      v-model="categoryValue"
+                      :items="categoryInputItems"
                       density="compact"
                       label="Category"
                       solo
                     ></v-autocomplete>
 
                     <div class="mt-5 text-right">
-
                       <v-btn
                         class="mr-3"
                         icon="mdi-format-list-bulleted"
@@ -58,7 +56,7 @@
 
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import { reactive, computed } from 'vue';
+import { ref, reactive, onMounted, computed } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 
@@ -72,25 +70,40 @@ export default {
         BreezeAuthenticatedLayout,
         Head,
     },
-    setup() {
+    setup(props) {
+
+      const categories = JSON.parse(JSON.stringify(props.categories)).data;
+      const categoryInputItems = [];
 
       const form = reactive({
         title: null,
         category_id: null
       });
 
-      const categoryInput = computed({
+      let categoryTitleSelect = ref('');
+
+      const categoryValue = computed({
         get() {
-          return {
-            title: 'test'
-          };
+          return categoryTitleSelect.value;
         },
         set(value) {
-          console.log(value);
-        }
-      });
+          categoryTitleSelect.value = value;
 
-      const submit = (()=>{
+          const category = categories.find(item =>
+            item.title === categoryTitleSelect.value
+          );
+          form.category_id = category.id;
+
+        }
+      })
+
+      onMounted(()=>{
+        categories.map((item) => {
+          categoryInputItems.push(item.title);
+        })
+      })
+
+      const submit = (() => {
         Inertia.post('/subcategories', form)
       })
 
@@ -104,8 +117,9 @@ export default {
 
       return {
         form,
+        categoryInputItems,
+        categoryValue,
         submit,
-        categoryInput,
         goToPage
       }
     }

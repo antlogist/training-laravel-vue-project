@@ -25,7 +25,7 @@ class SubcategoryController extends Controller
             'title' => 'Subcategory',
             'subcategories' => function() {
                 return SubcategoryIndexResource::collection(
-                    $user = auth()->user()->subcategories()->latest()->paginate(10)
+                    $subcategory = auth()->user()->subcategories()->latest()->paginate(10)
                 );
             }
         ]);
@@ -65,9 +65,9 @@ class SubcategoryController extends Controller
             'category_id' => $request->category_id
         ];
 
-        Category::create($insert);
+        Subcategory::create($insert);
 
-        return redirect()->route('categories');
+        return redirect()->route('subcategories');
     }
 
     /**

@@ -127,12 +127,11 @@ export default {
                 }
             }
         },
-        goToPage(page, data = {}) {
+        goToPage(page) {
             Inertia.visit(page, {
                 method: 'get',
                 replace: false,
                 preserveState: true,
-                data: data
             });
         }
     }

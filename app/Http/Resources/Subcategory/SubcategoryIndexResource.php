@@ -15,12 +15,17 @@ class SubcategoryIndexResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $arrayData = [
             'id'          => $this->id,
             'category_id' => $this->category_id,
             'title'       => $this->title,
             'slug'        => $this->slug,
-            'category'    => Category::where('id', $this->category_id)->where('user_id', auth()->user()->id)->first()->showResource()
         ];
+
+        if($this->category_id !== null) {
+            $arrayData['category'] = Category::where('id', $this->category_id)->where('user_id', auth()->user()->id)->first()->showResource();
+        }
+
+        return $arrayData;
     }
 }

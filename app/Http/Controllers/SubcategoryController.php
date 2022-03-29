@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subcategory;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -10,7 +11,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Http\Requests\StoreSubcategoryRequest;
 use App\Http\Resources\Category\CategoryIndexResource;
+use App\Http\Resources\Category\CategoryShowResource;
 use App\Http\Resources\Subcategory\SubcategoryIndexResource;
+use App\Http\Resources\Subcategory\SubcategoryShowResource;
 
 class SubcategoryController extends Controller
 {
@@ -78,7 +81,27 @@ class SubcategoryController extends Controller
      */
     public function show(Subcategory $subcategory)
     {
-        //
+        $slug = $subcategory->slug;
+
+        $category = Subcategory::findOrFail($subcategory->id)->category()->get()->first();
+
+        if($category) {
+            $category = new CategoryShowResource(
+                $category
+            );
+        } else {
+            $category = null;
+        };
+
+        return Inertia::render('Subcategories/Show', [
+            'title' => $subcategory->title,
+            'category' => $category,
+            'subcategory' =>  new SubcategoryShowResource(
+                Subcategory::where('slug', $slug)->
+                where('user_id', auth()->user()->id)->
+                firstOrFail()
+            )
+        ]);
     }
 
     /**

@@ -47,7 +47,7 @@
                             <v-list>
                                 <v-list-item elevation="1" two-line v-for="subcategory in subcategories.data" :key="subcategory.id">
 
-                                    <v-list-item-header>
+                                    <v-list-item-header @click="goToPage(`/subcategories/${subcategory.slug}`)">
                                         <v-list-item-title>{{ subcategory.title }}</v-list-item-title>
                                         <v-list-item-subtitle>slug: {{ subcategory.slug }} || id: {{ subcategory.id }}</v-list-item-subtitle>
                                     </v-list-item-header>
@@ -59,7 +59,7 @@
                                                 size="x-small"
                                                 color="grey lighten-1"
                                                 icon="mdi-eye"
-                                                @click="goToPage(`subcategories/${subcategory.slug}`)">
+                                                @click="goToPage(`/subcategories/${subcategory.slug}`)">
                                             </v-btn>
                                         </v-list-item-avatar>
 
@@ -68,7 +68,7 @@
                                                 size="x-small"
                                                 color="grey lighten-1"
                                                 icon="mdi-pen"
-                                                @click="goToPage(`subcategories/${subcategory.slug}/edit`)">
+                                                @click="goToPage(`/subcategories/${subcategory.slug}/edit`)">
                                             </v-btn>
                                         </v-list-item-avatar>
 
@@ -77,7 +77,7 @@
                                                 size="x-small"
                                                 color="grey lighten-1"
                                                 icon="mdi-close
-                                                " @click="destroy(subcategory.slug)">
+                                                " @click="destroy(`/subcategories/${subcategory.slug}`)">
                                             </v-btn>
                                         </v-list-item-avatar>
 

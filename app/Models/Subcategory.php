@@ -11,6 +11,10 @@ class Subcategory extends Model
 
     protected $fillable = ['title', 'slug', 'user_id', 'category_id'];
 
+    public function getRouteKeyName() {
+        return 'slug';
+    }
+
     public function category() {
         return $this->belongsTo(Category::class);
     }

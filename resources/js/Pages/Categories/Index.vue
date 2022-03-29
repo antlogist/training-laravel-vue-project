@@ -34,7 +34,7 @@
                         <v-list>
                             <v-list-item elevation="1" three-line v-for="category in categories.data" :key="category.id">
 
-                                <v-list-item-header>
+                                <v-list-item-header @click="goToPage(`categories/${category.slug}`)">
                                     <v-list-item-title>{{ category.title }}</v-list-item-title>
                                     <v-list-item-subtitle>slug: {{ category.slug }}</v-list-item-subtitle>
                                     <v-list-item-subtitle>id: {{ category.id }}</v-list-item-subtitle>

@@ -21,10 +21,10 @@
 
                             <v-btn
                               class="mr-3"
-                              icon="mdi-format-list-bulleted"
+                              icon="mdi-arrow-left"
                               size="small"
                               color="grey"
-                              @click="goToPage('/categories')">
+                              @click="backPage">
                             </v-btn>
 
                             <v-btn
@@ -137,8 +137,13 @@ export default {
         });
       }
 
+      function backPage() {
+        window.history.back();
+      }
+
       return {
-        goToPage
+        goToPage,
+        backPage
       }
     }
 }

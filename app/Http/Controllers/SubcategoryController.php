@@ -112,6 +112,11 @@ class SubcategoryController extends Controller
      */
     public function destroy(Subcategory $subcategory)
     {
-        //
+
+        $slug = $subcategory->slug;
+
+        Subcategory::where('slug', $slug)->where('user_id', auth()->user()->id)->first()->delete();
+
+        return redirect()->back();
     }
 }

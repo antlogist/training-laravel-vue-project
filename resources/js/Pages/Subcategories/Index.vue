@@ -64,8 +64,8 @@
                                         <v-btn
                                             size="x-small"
                                             color="grey lighten-1"
-                                            icon="mdi-close
-                                            " @click="destroy(subcategory.slug)">
+                                            icon="mdi-close"
+                                            @click="destroy(subcategory.slug)">
                                         </v-btn>
                                     </v-list-item-avatar>
 

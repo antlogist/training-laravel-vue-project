@@ -18,6 +18,7 @@ class SubcategoryShowResource extends JsonResource
             'id'          => $this->id,
             'title'       => $this->title,
             'slug'        => $this->slug,
+            'category_id' => $this->category_id
         ];
     }
 }

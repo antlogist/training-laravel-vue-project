@@ -25,7 +25,7 @@ class StoreSubcategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:2|max:70|unique:categories,title,NULL,id,user_id,' . Auth::user()->id,
+            'title' => 'required|min:2|max:70|unique:subcategories,title,NULL,id,user_id,' . Auth::user()->id,
             'category_id' => 'numeric|nullable'
         ];
     }

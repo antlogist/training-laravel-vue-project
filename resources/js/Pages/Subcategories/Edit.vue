@@ -64,6 +64,7 @@ export default {
     props: {
         title: String,
         subcategory: Object,
+        category: Object,
         categories: Object,
         errors: Object
     },
@@ -103,7 +104,7 @@ export default {
         categories.map((item) => {
           categoryInputItems.push(item.title);
           if(item.id === props.subcategory.data.category_id) {
-            categoryTitleSelect.value = item.title;
+            categoryTitleSelect.value = props.category.data.title;
           }
         })
       })

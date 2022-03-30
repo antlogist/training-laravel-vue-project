@@ -112,7 +112,13 @@ class SubcategoryController extends Controller
      */
     public function edit(Subcategory $subcategory)
     {
-        //
+        $categories = auth()->user()->categories()->latest()->get();
+
+        return Inertia::render('Subcategories/Edit', [
+            'title' => 'Subcategory',
+            'subcategory' => new SubcategoryShowResource($subcategory),
+            'categories' => CategoryIndexResource::collection($categories)
+        ]);
     }
 
     /**

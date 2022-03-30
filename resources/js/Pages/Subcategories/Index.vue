@@ -47,7 +47,7 @@
                                             size="x-small"
                                             color="grey lighten-1"
                                             icon="mdi-eye"
-                                            @click="goToPage(`subcategories/${subcategory.slug}`)">
+                                            @click="goToPage(`${subcategory.category ? subcategory.category.slug : 'subcategories'}/${subcategory.slug}`)">
                                         </v-btn>
                                     </v-list-item-avatar>
 
@@ -56,7 +56,7 @@
                                             size="x-small"
                                             color="grey lighten-1"
                                             icon="mdi-pen"
-                                            @click="goToPage(`subcategories/${subcategory.slug}/edit`)">
+                                            @click="goToPage(`${subcategory.category ? subcategory.category.slug : 'subcategories'}/${subcategory.slug}/edit`)">
                                         </v-btn>
                                     </v-list-item-avatar>
 
@@ -65,7 +65,7 @@
                                             size="x-small"
                                             color="grey lighten-1"
                                             icon="mdi-close"
-                                            @click="destroy(subcategory.slug)">
+                                            @click="destroy(subcategory.id)">
                                         </v-btn>
                                     </v-list-item-avatar>
 
@@ -115,7 +115,7 @@ export default {
     methods: {
         destroy(id) {
             if(confirm('Do you really want to delete this category?')) {
-                this.$inertia.delete(this.route('subcategories.destroy', id));
+                this.$inertia.post(this.route('subcategories.destroy', id));
 
                 //If last item on last page
                 if(

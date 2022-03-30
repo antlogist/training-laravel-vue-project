@@ -79,27 +79,25 @@ class SubcategoryController extends Controller
      * @param  \App\Models\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function show(Subcategory $subcategory)
+
+    public function show(Category $category, Subcategory $subcategory)
     {
-        $slug = $subcategory->slug;
-
-        $category = Subcategory::findOrFail($subcategory->id)->category()->get()->first();
-
-        if($category) {
-            $category = new CategoryShowResource(
-                $category
-            );
-        } else {
-            $category = null;
-        };
-
         return Inertia::render('Subcategories/Show', [
             'title' => $subcategory->title,
-            'category' => $category,
+            'category' => new CategoryShowResource($category),
             'subcategory' =>  new SubcategoryShowResource(
-                Subcategory::where('slug', $slug)->
-                where('user_id', auth()->user()->id)->
-                firstOrFail()
+                $subcategory
+            )
+        ]);
+    }
+
+    public function showWithoutCategory(Subcategory $subcategory)
+    {
+        return Inertia::render('Subcategories/Show', [
+            'title' => $subcategory->title,
+            'category' => null,
+            'subcategory' =>  new SubcategoryShowResource(
+                $subcategory
             )
         ]);
     }
@@ -110,13 +108,26 @@ class SubcategoryController extends Controller
      * @param  \App\Models\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Subcategory $subcategory)
+    public function edit(Category $category, Subcategory $subcategory)
     {
         $categories = auth()->user()->categories()->latest()->get();
 
         return Inertia::render('Subcategories/Edit', [
-            'title' => 'Subcategory',
+            'title' => 'Edit Subcategory: ' . $subcategory->title,
             'subcategory' => new SubcategoryShowResource($subcategory),
+            'category' => new CategoryShowResource($category),
+            'categories' => CategoryIndexResource::collection($categories)
+        ]);
+    }
+
+    public function editWithoutCategory(Subcategory $subcategory)
+    {
+        $categories = auth()->user()->categories()->latest()->get();
+
+        return Inertia::render('Subcategories/Edit', [
+            'title' => 'Edit Subcategory: ' . $subcategory->title,
+            'subcategory' => new SubcategoryShowResource($subcategory),
+            'category' => null,
             'categories' => CategoryIndexResource::collection($categories)
         ]);
     }
@@ -128,9 +139,19 @@ class SubcategoryController extends Controller
      * @param  \App\Models\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subcategory $subcategory)
+    public function update(StoreSubcategoryRequest $request, Subcategory $subcategory)
     {
-        //
+        $request->validated();
+
+        $insert = [
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'category_id' => $request->category_id
+        ];
+
+        $subcategory->where('id', $request->id)->where('user_id', auth()->user()->id)->first()->update($insert);
+
+        return redirect()->route('subcategories');
     }
 
     /**
@@ -139,12 +160,10 @@ class SubcategoryController extends Controller
      * @param  \App\Models\Subcategory  $subcategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subcategory $subcategory)
+    public function destroy($id)
     {
 
-        $slug = $subcategory->slug;
-
-        Subcategory::where('slug', $slug)->where('user_id', auth()->user()->id)->first()->delete();
+        Subcategory::where('id', $id)->where('user_id', auth()->user()->id)->first()->delete();
 
         return redirect()->back();
     }

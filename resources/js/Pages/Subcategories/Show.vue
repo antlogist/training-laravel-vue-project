@@ -17,6 +17,17 @@
 
                         <h2>Subcategory description</h2>
 
+                        <div class="text-right mt-5 mb-5">
+
+                            <v-btn
+                              icon="mdi-arrow-left"
+                              size="small"
+                              color="grey"
+                              @click="backPage()">
+                            </v-btn>
+
+                        </div>
+
                   </div>
 
                 </v-col>
@@ -53,8 +64,13 @@ export default {
         });
       }
 
+      function backPage() {
+        window.history.back();
+      }
+
       return {
-        goToPage
+        goToPage,
+        backPage
       }
     }
 }

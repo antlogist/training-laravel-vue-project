@@ -31,10 +31,10 @@
                     <div class="mt-5 text-right">
                       <v-btn
                         class="mr-3"
-                        icon="mdi-format-list-bulleted"
+                        icon="mdi-arrow-left"
                         size="small"
                         color="grey"
-                        @click="goToPage('/subcategories')">
+                        @click="backPage">
                       </v-btn>
 
                       <v-btn
@@ -115,12 +115,17 @@ export default {
         });
       })
 
+      const backPage = (()=>{
+        window.history.back();
+      })
+
       return {
         form,
         categoryInputItems,
         categoryValue,
         submit,
-        goToPage
+        goToPage,
+        backPage
       }
     }
 }

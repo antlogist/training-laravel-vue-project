@@ -18,6 +18,7 @@ class CreateNotesTable extends Migration
             $table->timestamps();
 
             $table->string('title');
+            $table->string('slug');
             $table->text('content');
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

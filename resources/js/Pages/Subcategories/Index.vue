@@ -34,7 +34,7 @@
                         <v-list>
                             <v-list-item elevation="1" three-line v-for="subcategory in subcategories.data" :key="subcategory.id">
 
-                                <v-list-item-header @click="goToPage(`subcategories/${subcategory.slug}`)">
+                                <v-list-item-header @click="goToPage(`${subcategory.category ? subcategory.category.slug : 'subcategories'}/${subcategory.slug}`)">
                                     <v-list-item-title>{{ subcategory.title }}</v-list-item-title>
                                     <v-list-item-subtitle>slug: {{ subcategory.slug }} || id: {{ subcategory.id }}</v-list-item-subtitle>
                                     <v-list-item-subtitle>category: {{ subcategory.category ? subcategory.category.title : 'No category'}}</v-list-item-subtitle>

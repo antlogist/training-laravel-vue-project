@@ -20,14 +20,11 @@ class CreateNotesTable extends Migration
             $table->string('title');
             $table->text('content');
 
-            $table->unsignedBigInteger('user_id')->index();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
-            $table->unsignedBigInteger('category_id')->index()->nullable();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade');
 
-            $table->unsignedBigInteger('subcategory_id')->index()->nullable();
-            $table->foreign('subcategory_id')->references('id')->on('subcategories');
+            $table->foreignId('subcategory_id')->nullable()->constrained()->onDelete('cascade');
 
         });
     }

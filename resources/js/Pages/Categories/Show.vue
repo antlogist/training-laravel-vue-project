@@ -69,7 +69,7 @@
                                                 size="x-small"
                                                 color="grey lighten-1"
                                                 icon="mdi-pen"
-                                                @click="goToPage(`/subcategories/${subcategory.slug}/edit`)">
+                                                @click="goToPage(`/${category.data.slug}/${subcategory.slug}/edit`)">
                                             </v-btn>
                                         </v-list-item-avatar>
 

@@ -73,15 +73,6 @@
                                             </v-btn>
                                         </v-list-item-avatar>
 
-                                        <v-list-item-avatar right>
-                                            <v-btn
-                                                size="x-small"
-                                                color="grey lighten-1"
-                                                icon="mdi-close
-                                                " @click="destroy(`/subcategories/${subcategory.slug}`)">
-                                            </v-btn>
-                                        </v-list-item-avatar>
-
                                     </template>
 
                                 </v-list-item>

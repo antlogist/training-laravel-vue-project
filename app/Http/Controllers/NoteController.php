@@ -6,6 +6,7 @@ use App\Models\Note;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Resources\Note\NoteIndexResource;
 
 class NoteController extends Controller
 {
@@ -16,8 +17,13 @@ class NoteController extends Controller
      */
     public function index()
     {
-        return Inertia::render('NoteList', [
-            'title' => 'Notes'
+        return Inertia::render('Notes/Index', [
+            'title' => 'Notes',
+            'notes' => function() {
+                return NoteIndexResource::collection(
+                    $notes = auth()->user()->notes()->latest()->paginate(10)
+                );
+            }
         ]);
     }
 

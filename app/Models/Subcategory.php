@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Resources\Subcategory\SubcategoryShowResource;
 
 class Subcategory extends Model
 {
@@ -13,6 +14,10 @@ class Subcategory extends Model
 
     public function getRouteKeyName() {
         return 'slug';
+    }
+
+    public function showResource() {
+        return new SubcategoryShowResource($this);
     }
 
     public function category() {

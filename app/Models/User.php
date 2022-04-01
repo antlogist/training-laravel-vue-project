@@ -49,4 +49,8 @@ class User extends Authenticatable
     public function subcategories() {
         return $this->hasMany(Subcategory::class);
     }
+
+    public function notes() {
+        return $this->hasMany(Note::class);
+    }
 }

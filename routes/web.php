@@ -37,9 +37,9 @@ Route::get('/dashboard', function () {
 //     return Inertia::render('Notes');
 // })->middleware(['auth', 'verified'])->name('note');
 
-Route::get('/notes',
-    [\App\Http\Controllers\NoteController::class,
-    'index'])->middleware(['auth', 'verified'])->name('notes');
+// Route::get('/notes',
+//     [\App\Http\Controllers\NoteController::class,
+//     'index'])->middleware(['auth', 'verified'])->name('notes');
 
 Route::get('/map',
     [\App\Http\Controllers\MapController::class,
@@ -49,5 +49,6 @@ Route::resource('/categories', \App\Http\Controllers\CategoryController::class)
     ->middleware(['auth', 'verified'])->name('index', 'categories');
 
 require __DIR__.'/subcategory_routes.php';
+require __DIR__.'/note_routes.php';
 
 require __DIR__.'/auth.php';

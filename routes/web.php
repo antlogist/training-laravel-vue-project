@@ -48,7 +48,7 @@ Route::get('/map',
 Route::resource('/categories', \App\Http\Controllers\CategoryController::class)
     ->middleware(['auth', 'verified'])->name('index', 'categories');
 
-require __DIR__.'/subcategory_routes.php';
 require __DIR__.'/note_routes.php';
+require __DIR__.'/subcategory_routes.php';
 
 require __DIR__.'/auth.php';

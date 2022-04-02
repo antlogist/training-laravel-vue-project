@@ -37,7 +37,7 @@
                         <v-list>
                             <v-list-item elevation="1" three-line v-for="note in notes.data" :key="note.id">
 
-                                <v-list-item-header>
+                                <v-list-item-header @click="goToPage(`notes/${note.slug}`)">
                                     <v-list-item-title>{{ note.title }}</v-list-item-title>
                                     <v-list-item-subtitle>slug: {{ note.slug }} || id: {{ note.id }}</v-list-item-subtitle>
                                     <v-list-item-subtitle>
@@ -53,6 +53,7 @@
                                             size="x-small"
                                             color="grey lighten-1"
                                             icon="mdi-eye"
+                                            @click="goToPage(`notes/${note.slug}`)"
                                         >
                                         </v-btn>
                                     </v-list-item-avatar>
@@ -133,12 +134,11 @@ export default {
                 }
             }
         },
-        goToPage(page, data = {}) {
+        goToPage(page) {
             Inertia.visit(page, {
                 method: 'get',
                 replace: false,
                 preserveState: true,
-                data: data
             });
         }
     }

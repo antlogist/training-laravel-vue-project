@@ -16,7 +16,7 @@
 
                   <div class="mt-5 mb-5" justify-md="center" no-gutters>
 
-                        <h2>Note content</h2>
+                        <div v-html="note.data.content"></div>
 
                         <div class="text-right mt-5 mb-5">
 

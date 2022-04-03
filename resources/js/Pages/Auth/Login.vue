@@ -10,7 +10,6 @@
     <v-form @submit.prevent="submit">
         <v-text-field
             v-model="form.email"
-            :rules="emailRules"
             label="E-mail"
             autofocus
             autocomplete="username"
@@ -21,7 +20,6 @@
         <v-text-field
             v-model="form.password"
             :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="required"
             :type="showPass ? 'text' : 'password'"
             name="password"
             label="Password"
@@ -73,11 +71,6 @@ export default {
                 password: '',
                 remember: false
             }),
-            emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@.+/.test(v) || 'E-mail must be valid',
-            ],
-            required: value => !!value || 'Required.'
         }
     },
 

@@ -40,7 +40,7 @@
 <script>
 import { Head } from '@inertiajs/inertia-vue3';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
-import useCanvas from '../composables/canvas';
+import useCanvas from '../../composables/canvas';
 
 export default {
   props: {

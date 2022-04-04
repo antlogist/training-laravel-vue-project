@@ -99,8 +99,8 @@ export default {
       id: props.note.data.id,
       title: props.note.data.title,
       content: props.note.data.content,
-      category_id: props.category.data.id,
-      subcategory_id: props.subcategory.data.id,
+      category_id: props.category ? props.category.data.id : '',
+      subcategory_id: props.subcategory ? props.subcategory.data.id : '',
     });
 
     let categoryTitleSelect = ref('');
@@ -150,18 +150,19 @@ export default {
     const categoryOnMounted = function() {
       categories.map((item) => {
         categoryInputItems.push(item.title);
-        if(item.id === props.category.data.id) {
+        if(props.category && item.id === props.category.data.id) {
           categoryTitleSelect.value = props.category.data.title;
         }
       });
     }
 
     const subcategoryOnMounted = function() {
+
       subcategories.map((item) => {
         if(item.category_id === props.category.data.id) {
           subcategoryInputItems.value.push(item.title);
         }
-        if(item.id === props.subcategory.data.id) {
+        if(props.subcategory && item.id === props.subcategory.data.id) {
           subcategoryTitleSelect.value = props.subcategory.data.title;
         }
       })

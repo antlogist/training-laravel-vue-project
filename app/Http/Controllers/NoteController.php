@@ -62,20 +62,18 @@ class NoteController extends Controller
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
+
     public function show(Note $note)
     {
+        $category = $note->category;
+        $subcategory = $note->subcategory;
 
         return Inertia::render('Notes/Show', [
             'title' => $note->title,
             'note' => new NoteShowResource($note),
-            'category' => new CategoryShowResource(
-                // Category::where('id', $note->category_id)->firstOrFail()
-                Category::where('id', $note->category_id)->where('user_id', $note->user_id)->first()
-            ),
-            'subcategory' => new SubcategoryShowResource(
-                // Subcategory::where('id', $note->subcategory_id)->firstOrFail()
-                Subcategory::where('id', $note->subcategory_id)->where('user_id', $note->user_id)->first()
-            )
+
+            'category' => $category ? new CategoryShowResource( $category ) : null,
+            'subcategory' => $subcategory ? new SubcategoryShowResource( $subcategory ) : null
         ]);
     }
 
@@ -90,17 +88,18 @@ class NoteController extends Controller
         $categories = auth()->user()->categories()->latest()->get();
         $subcategories = auth()->user()->subcategories()->latest()->get();
 
+        $category = $note->category;
+        $subcategory = $note->subcategory;
+
         return Inertia::render('Notes/Edit', [
             'title' => 'Edit Note: ' . $note->title,
             'note' => new NoteShowResource(
                 $note
             ),
-            'subcategory' => new SubcategoryShowResource(
-                Subcategory::where('id', $note->subcategory_id)->where('user_id', $note->user_id)->first()
-            ),
-            'category' => new CategoryShowResource(
-                Category::where('id', $note->category_id)->where('user_id', $note->user_id)->first()
-            ),
+
+            'category' => $category ? new CategoryShowResource( $category ) : null,
+            'subcategory' => $subcategory ? new SubcategoryShowResource( $subcategory ) : null,
+
             'categories' => CategoryIndexResource::collection($categories),
             'subcategories' => SubcategoryIndexResource::collection($subcategories)
         ]);

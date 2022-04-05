@@ -27,6 +27,7 @@ export default function useCanvas() {
     currentLayer.value = layer;
   }
 
+
   function draw() {
     ctx.clearRect(0, 0, canvas.width,canvas.height);
 
@@ -58,14 +59,16 @@ export default function useCanvas() {
   }
 
   //Handler for placing new tiles on the map
-  function addTile(mouseEvent) {
+  function tileEvent(mouseEvent, noteId = '', extraMapId = '') {
     const clicked = getCoordinates(event);
     const key = clicked[0] + "-" + clicked[1];
 
     if (mouseEvent.shiftKey) {
         delete layers[currentLayer.value][key];
+    } else if(mouseEvent.ctrlKey) {
+        layers[currentLayer.value][key] = [selection[0], selection[1], noteId, extraMapId];
     } else {
-        layers[currentLayer.value][key] = [selection[0], selection[1]];
+      console.log(mouseEvent);
     }
     draw();
   }
@@ -78,6 +81,7 @@ export default function useCanvas() {
   }
 
   onMounted(() => {
+
     //canvas
     canvas = document.querySelector('canvas');
     ctx = canvas.getContext('2d');
@@ -92,29 +96,29 @@ export default function useCanvas() {
     canvas.addEventListener("mouseleave", () => {
       isMouseDown.value = false;
     });
-    canvas.addEventListener("mousedown", addTile);
+    canvas.addEventListener("mousedown", tileEvent);
     canvas.addEventListener("mousemove", (event) => {
       if (isMouseDown.value) {
-          addTile(event);
+          tileEvent(event);
       }
     });
 
-      //tileset
-      tilesetSelection = document.querySelector('.tile-selection');
-      tilesetWrapper = document.querySelector('.tileset-wrapper');
-      //tileset mouse click
-      tilesetWrapper.addEventListener('mousedown', event => {
-        selection = getCoordinates(event);
-        tilesetSelection.style.left = selection[0] * 32 + 'px';
-        tilesetSelection.style.top = selection[1] * 32 + 'px';
-      });
-      // tilesetSource = document.querySelector('.tileset-source');
+    //tileset
+    tilesetSelection = document.querySelector('.tile-selection');
+    tilesetWrapper = document.querySelector('.tileset-wrapper');
+    //tileset mouse click
+    tilesetWrapper.addEventListener('mousedown', event => {
+      selection = getCoordinates(event);
+      tilesetSelection.style.left = selection[0] * 32 + 'px';
+      tilesetSelection.style.top = selection[1] * 32 + 'px';
+    });
+    // tilesetSource = document.querySelector('.tileset-source');
 
-      //set tileset source
-      tilesetSource.value = 'https://assets.codepen.io/21542/TileEditorSpritesheet.2x_2.png';
+    //set tileset source
+    tilesetSource.value = 'https://assets.codepen.io/21542/TileEditorSpritesheet.2x_2.png';
 
-      //get tilesetImg
-      tilesetImg = document.querySelector('#tilesetSource');
+    //get tilesetImg
+    tilesetImg = document.querySelector('#tilesetSource');
 
   });
 

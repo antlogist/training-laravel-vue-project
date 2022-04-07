@@ -27,7 +27,7 @@
             </v-col>
 
             <v-col cols="12" sm="8">
-              <v-card class="pa-2 text-center" outlined tile>
+              <v-card class="pa-2 text-center canvas-wrapper" outlined tile>
                 <canvas :width="canvasSize.width" :height="canvasSize.height"></canvas>
               </v-card>
             </v-col>
@@ -52,7 +52,7 @@ export default {
       canvasSize,
       tilesetSource,
       currentLayer,
-      // layers,
+      layers,
       setLayer,
       clearCanvas
     } = useCanvas();
@@ -61,7 +61,7 @@ export default {
       canvasSize,
       tilesetSource,
       currentLayer,
-      // layers,
+      layers,
       setLayer,
       clearCanvas
     }
@@ -90,5 +90,11 @@ export default {
 
 canvas {
   border: 1px solid black;
+}
+
+.canvas-wrapper {
+  overflow: scroll;
+  width: 100%;
+  height: 500px;
 }
 </style>

@@ -5,7 +5,7 @@ export default function useCanvas() {
   //Canvas
   let canvas = ref(null);
   let ctx = ref(null);
-  let canvasSize = reactive({ height: 480, width: 960 });
+  let canvasSize = reactive({ height: 960, width: 960 });
 
   //Tileset
   let tilesetImg = reactive(null);

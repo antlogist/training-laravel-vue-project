@@ -4,7 +4,7 @@
         <Head :title="title" />
 
         <v-container>
-          <v-row no-gutters>
+          <v-row>
 
             <v-col cols="12" sm="4">
               <v-card class="pa-2" outlined tile>
@@ -30,6 +30,54 @@
               <v-card class="pa-2 text-center canvas-wrapper" outlined tile>
                 <canvas :width="canvasSize.width" :height="canvasSize.height"></canvas>
               </v-card>
+
+
+              <v-card class="pa-2 my-5">
+
+                <v-form @submit.prevent="submit">
+
+                  <v-text-field
+                    class="mt-5"
+                    label="Note title"
+                    density="compact"
+                    v-model.lazy="form.note.title"
+                    :error-messages="errors.title"
+                  ></v-text-field>
+
+                  <v-autocomplete
+                    v-model="categoryValue"
+                    :items="categoryInputItems"
+                    density="compact"
+                    label="Category"
+                    solo
+                  ></v-autocomplete>
+
+                  <v-autocomplete
+                    v-model="subcategoryValue"
+                    :items="subcategoryInputItems"
+                    density="compact"
+                    label="Subcategory"
+                    solo
+                  ></v-autocomplete>
+
+                  <v-textarea
+                    name="content"
+                    label="Note Content"
+                    v-model.lazy="form.note.content"
+                  ></v-textarea>
+
+                  <div class="text-right">
+                    <v-btn
+                      icon="mdi-content-save"
+                      size="small"
+                      color="grey"
+                      type="submit">
+                    </v-btn>
+                  </div>
+
+                </v-form>
+
+              </v-card>
             </v-col>
 
           </v-row>
@@ -38,13 +86,17 @@
 </template>
 
 <script>
+import { reactive, ref, computed } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import useCanvas from '../../composables/canvas';
 
 export default {
   props: {
-    title: String
+    title: String,
+    categories: Object,
+    subcategories: Object,
+    errors: Object
   },
   setup() {
 
@@ -57,11 +109,55 @@ export default {
       clearCanvas
     } = useCanvas();
 
+    const categoryInputItems = [];
+
+    const subcategoryInputItems = ref([]);
+
+    const form = reactive({
+      title: '',
+      note: {
+        id: '',
+        title: '',
+        content: '',
+        category_id: '',
+        subcategory_id: '',
+      }
+    })
+
+
+    const categoryValue = computed({
+      get() {
+        return '';
+      },
+      set(value) {
+        form.note.category_id = value
+      }
+    })
+
+    const subcategoryValue = computed({
+      get() {
+        return '';
+      },
+      set(value) {
+        form.note.subcategory_id = value
+      }
+    })
+
+    const submit = function() {
+      alert('!!!');
+    }
+
     return {
       canvasSize,
       tilesetSource,
       currentLayer,
       layers,
+      form,
+      categoryValue,
+      categoryInputItems,
+      subcategoryValue,
+      subcategoryInputItems,
+      submit,
       setLayer,
       clearCanvas
     }

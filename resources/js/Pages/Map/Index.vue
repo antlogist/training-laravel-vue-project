@@ -27,78 +27,41 @@
             </v-col>
 
             <v-col cols="12" sm="8">
+
               <v-card class="pa-2 text-center canvas-wrapper" outlined tile>
                 <canvas :width="canvasSize.width" :height="canvasSize.height"></canvas>
               </v-card>
 
-
               <v-card class="pa-2 my-5">
-
-                <v-form @submit.prevent="submit">
-
-                  <v-text-field
-                    class="mt-5"
-                    label="Note title"
-                    density="compact"
-                    v-model.lazy="form.note.title"
-                    :error-messages="errors.title"
-                  ></v-text-field>
-
-                  <v-autocomplete
-                    v-model="categoryValue"
-                    :items="categoryInputItems"
-                    density="compact"
-                    label="Category"
-                    solo
-                  ></v-autocomplete>
-
-                  <v-autocomplete
-                    v-model="subcategoryValue"
-                    :items="subcategoryInputItems"
-                    density="compact"
-                    label="Subcategory"
-                    solo
-                  ></v-autocomplete>
-
-                  <v-textarea
-                    name="content"
-                    label="Note Content"
-                    v-model.lazy="form.note.content"
-                  ></v-textarea>
-
-                  <div class="text-right">
-                    <v-btn
-                      icon="mdi-content-save"
-                      size="small"
-                      color="grey"
-                      type="submit">
-                    </v-btn>
-                  </div>
-
-                </v-form>
-
+                <v-btn @click="openMapItemDialog">Open Dialog</v-btn>
               </v-card>
+
             </v-col>
 
           </v-row>
+
+          <DialogMapItemForm
+            :dialog='isDialogFormOpen'
+            @closeDialog='closeMapItemDialog'/>
+
         </v-container>
     </BreezeAuthenticatedLayout>
 </template>
 
 <script>
-import { reactive, ref, computed } from 'vue';
+import { ref } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import useCanvas from '../../composables/canvas';
+import DialogMapItemForm from '../../Components/DialogMapItemForm.vue';
 
 export default {
   props: {
     title: String,
-    categories: Object,
-    subcategories: Object,
-    errors: Object
   },
   setup() {
+
+    let isDialogFormOpen = ref(false);
 
     let {
       canvasSize,
@@ -109,42 +72,12 @@ export default {
       clearCanvas
     } = useCanvas();
 
-    const categoryInputItems = [];
+    const openMapItemDialog = function() {
+      isDialogFormOpen.value = true;
+    }
 
-    const subcategoryInputItems = ref([]);
-
-    const form = reactive({
-      title: '',
-      note: {
-        id: '',
-        title: '',
-        content: '',
-        category_id: '',
-        subcategory_id: '',
-      }
-    })
-
-
-    const categoryValue = computed({
-      get() {
-        return '';
-      },
-      set(value) {
-        form.note.category_id = value
-      }
-    })
-
-    const subcategoryValue = computed({
-      get() {
-        return '';
-      },
-      set(value) {
-        form.note.subcategory_id = value
-      }
-    })
-
-    const submit = function() {
-      alert('!!!');
+    const closeMapItemDialog = function() {
+      isDialogFormOpen.value = false;
     }
 
     return {
@@ -152,12 +85,9 @@ export default {
       tilesetSource,
       currentLayer,
       layers,
-      form,
-      categoryValue,
-      categoryInputItems,
-      subcategoryValue,
-      subcategoryInputItems,
-      submit,
+      isDialogFormOpen,
+      openMapItemDialog,
+      closeMapItemDialog,
       setLayer,
       clearCanvas
     }
@@ -166,6 +96,7 @@ export default {
   components: {
       Head,
       BreezeAuthenticatedLayout,
+      DialogMapItemForm
   },
 }
 </script>

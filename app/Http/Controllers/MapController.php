@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Http\Resources\Map\MapIndexResource;
 
 class MapController extends Controller
 {
@@ -16,6 +17,11 @@ class MapController extends Controller
     {
         return Inertia::render('Maps/Index', [
             'title' => 'Maps',
+            'maps' => function() {
+                return MapIndexResource::collection(
+                    $maps = auth()->user()->maps()->latest()->paginate(10)
+                );
+            }
         ]);
     }
 

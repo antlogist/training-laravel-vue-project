@@ -8,7 +8,7 @@
 
             <v-col cols="12" sm="4">
               <v-card class="pa-2" outlined tile>
-                <!-- {{ layers }} -->
+                {{ layers }}
                 <div class="buttons-wrapper text-center mb-3">
                   <v-btn :class="{'bg-grey': currentLayer === 2}" variant="outlined" size="x-small" class="mr-1" @click="setLayer(2)">Top</v-btn>
                   <v-btn :class="{'bg-grey': currentLayer === 1}" variant="outlined" size="x-small" @click="setLayer(1)">Middle</v-btn>
@@ -34,6 +34,7 @@
 
               <v-card class="pa-2 my-5">
                 <v-btn @click="openMapItemDialog">Open Dialog</v-btn>
+                <v-btn @click="saveMap">Save Map</v-btn>
               </v-card>
 
             </v-col>
@@ -80,6 +81,10 @@ export default {
       isDialogFormOpen.value = false;
     }
 
+    const saveMap = function() {
+      alert('!!!');
+    }
+
     return {
       canvasSize,
       tilesetSource,
@@ -89,7 +94,8 @@ export default {
       openMapItemDialog,
       closeMapItemDialog,
       setLayer,
-      clearCanvas
+      clearCanvas,
+      saveMap
     }
 
   },

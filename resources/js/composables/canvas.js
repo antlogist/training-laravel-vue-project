@@ -8,9 +8,9 @@ export default function useCanvas() {
   let canvasSize = reactive({ height: 960, width: 960 });
 
   //Tileset
-  let tilesetImg = reactive(null);
+  let tilesetImg = reactive({});
   let tilesetWrapper = ref(null);
-  let tilesetSelection = reactive(null);
+  let tilesetSelection = reactive({});
   let tilesetSource = ref('');
 
   //menu tile

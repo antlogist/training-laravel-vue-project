@@ -32,22 +32,10 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// If page doesn't need a corresponding controller method
-// Route::get('/notes', function () {
-//     return Inertia::render('Notes');
-// })->middleware(['auth', 'verified'])->name('note');
-
-// Route::get('/notes',
-//     [\App\Http\Controllers\NoteController::class,
-//     'index'])->middleware(['auth', 'verified'])->name('notes');
-
-Route::get('/map',
-    [\App\Http\Controllers\MapController::class,
-    'show'])->middleware(['auth', 'verified'])->name('map');
-
 Route::resource('/categories', \App\Http\Controllers\CategoryController::class)
     ->middleware(['auth', 'verified'])->name('index', 'categories');
 
+require __DIR__.'/map_routes.php';
 require __DIR__.'/note_routes.php';
 require __DIR__.'/subcategory_routes.php';
 

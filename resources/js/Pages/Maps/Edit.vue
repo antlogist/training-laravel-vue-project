@@ -5,10 +5,8 @@
 
         <v-container>
           <v-row>
-
             <v-col cols="12" sm="4">
               <v-card class="pa-2" outlined tile>
-                {{ layers }}
                 <div class="buttons-wrapper text-center mb-3">
                   <v-btn :class="{'bg-grey': currentLayer === 2}" variant="outlined" size="x-small" class="mr-1" @click="setLayer(2)">Top</v-btn>
                   <v-btn :class="{'bg-grey': currentLayer === 1}" variant="outlined" size="x-small" @click="setLayer(1)">Middle</v-btn>
@@ -50,7 +48,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import useCanvas from '../../composables/canvas';
@@ -59,8 +57,11 @@ import DialogMapItemForm from '../../Components/DialogMapItemForm.vue';
 export default {
   props: {
     title: String,
+    map: Object
   },
-  setup() {
+  setup(props) {
+
+    let tiles = JSON.parse(props.map.data.tiles);
 
     let isDialogFormOpen = ref(false);
 
@@ -71,7 +72,7 @@ export default {
       layers,
       setLayer,
       clearCanvas
-    } = useCanvas();
+    } = useCanvas(tiles);
 
     const openMapItemDialog = function() {
       isDialogFormOpen.value = true;

@@ -1,10 +1,9 @@
 import { ref, reactive, onMounted } from 'vue';
 
-export default function useCanvas() {
-
+export default function useCanvas(tiles) {
   //Canvas
-  let canvas = ref(null);
-  let ctx = ref(null);
+  let canvas = reactive({});
+  let ctx = reactive({});
   let canvasSize = reactive({ height: 960, width: 960 });
 
   //Tileset
@@ -20,13 +19,12 @@ export default function useCanvas() {
   let isMouseDown = ref(false);
 
   //layers
-  let layers = reactive([{},{},{}]);
+  let layers = reactive(tiles);
   let currentLayer = ref(0);
 
   function setLayer(layer) {
     currentLayer.value = layer;
   }
-
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width,canvas.height);
@@ -84,7 +82,14 @@ export default function useCanvas() {
 
     //canvas
     canvas = document.querySelector('canvas');
-    ctx = canvas.getContext('2d');
+    const getCtx = new Promise((resolve, reject) => {
+      resolve(canvas.getContext('2d'));
+    });
+
+    getCtx.then((value) => {
+      ctx = value;
+      draw();
+    });
 
     //Bind mouse events for painting (or removing) tiles on click/drag
     canvas.addEventListener("mousedown", () => {
@@ -127,6 +132,8 @@ export default function useCanvas() {
     tilesetSource,
     currentLayer,
     layers,
+    ctx,
+    draw,
     setLayer,
     clearCanvas
   }

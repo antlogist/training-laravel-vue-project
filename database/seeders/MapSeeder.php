@@ -22,8 +22,8 @@ class MapSeeder extends Seeder
                         [
                             '0-0' => [0, 0, '', '']
                         ],
-                        [],
-                        []
+                        (object)[],
+                        (object)[]
                     ],
                 ),
                 'user_id' => 1

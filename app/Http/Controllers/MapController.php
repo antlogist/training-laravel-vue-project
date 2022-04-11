@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Models\Map;
 use App\Http\Resources\Map\MapIndexResource;
+use App\Http\Resources\Map\MapShowResource;
 
 class MapController extends Controller
 {
@@ -63,10 +65,11 @@ class MapController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Map $map)
     {
         return Inertia::render('Maps/Edit', [
             'title' => 'Maps',
+            'map' => new MapShowResource($map)
         ]);
     }
 

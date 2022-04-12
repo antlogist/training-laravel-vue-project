@@ -54,9 +54,12 @@ class MapController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Map $map)
     {
-
+        return Inertia::render('Maps/Show', [
+            'title' => 'Map',
+            'map' => new MapShowResource($map)
+        ]);
     }
 
     /**

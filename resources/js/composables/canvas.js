@@ -38,13 +38,14 @@ export default function useCanvas(tiles) {
 
         const [tilesheetX, tilesheetY] = layer[key]; //deconstruction. * 32 - where cropping starts
 
-        ctx.drawImage(
-          tilesetImg,
-          tilesheetX * 32, tilesheetY * 32, //top left corner of the grab
-          sizeOfCrop, sizeOfCrop, //how big of a grab
-          positionX * 32, positionY * 32, //where the crop to be placed
-          sizeOfCrop, sizeOfCrop //size of placement what was grabbed
-        );
+          tilesetImg.onload = function() { ctx.drawImage(
+            tilesetImg,
+            tilesheetX * 32, tilesheetY * 32, //top left corner of the grab
+            sizeOfCrop, sizeOfCrop, //how big of a grab
+            positionX * 32, positionY * 32, //where the crop to be placed
+            sizeOfCrop, sizeOfCrop //size of placement what was grabbed
+          );
+        }
       })
     })
   }

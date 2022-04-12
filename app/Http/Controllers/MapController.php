@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Map;
 use App\Http\Resources\Map\MapIndexResource;
 use App\Http\Resources\Map\MapShowResource;
@@ -83,9 +84,18 @@ class MapController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Map $map)
     {
-        //
+        $insert = [
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'tiles' => $request->tiles,
+        ];
+
+        $map->where('id', $request->id)->where('user_id', auth()->user()->id)->first()->update($insert);
+
+        return redirect()->route('maps');
+
     }
 
     /**

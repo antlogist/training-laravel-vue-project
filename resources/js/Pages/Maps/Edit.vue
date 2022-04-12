@@ -2,7 +2,6 @@
     <BreezeAuthenticatedLayout>
 
         <Head :title="title" />
-
         <v-container>
           <v-row>
             <v-col cols="12" sm="4">
@@ -25,6 +24,14 @@
             </v-col>
 
             <v-col cols="12" sm="8">
+
+                <v-text-field
+                  class="mt-5"
+                  label="Map title"
+                  density="compact"
+                  v-model.lazy="map.data.title"
+                  :error-messages="errors.title"
+                ></v-text-field>
 
               <v-card class="pa-2 text-center canvas-wrapper" outlined tile>
                 <canvas :width="canvasSize.width" :height="canvasSize.height"></canvas>
@@ -50,6 +57,7 @@
 <script>
 import { ref } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
+import { Inertia } from '@inertiajs/inertia';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import useCanvas from '../../composables/canvasEdit';
 import DialogMapItemForm from '../../Components/DialogMapItemForm.vue';
@@ -57,7 +65,8 @@ import DialogMapItemForm from '../../Components/DialogMapItemForm.vue';
 export default {
   props: {
     title: String,
-    map: Object
+    map: Object,
+    errors: Object
   },
   setup(props) {
 
@@ -83,7 +92,12 @@ export default {
     }
 
     const saveMap = function() {
-      alert('!!!');
+      const form = {
+        id: props.map.data.id,
+        title: props.map.data.title,
+        tiles: JSON.stringify(layers)
+      }
+      Inertia.put(`/maps/${props.map.data.slug}`, form);
     }
 
     return {

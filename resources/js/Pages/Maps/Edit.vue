@@ -48,10 +48,10 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
-import useCanvas from '../../composables/canvas';
+import useCanvas from '../../composables/canvasEdit';
 import DialogMapItemForm from '../../Components/DialogMapItemForm.vue';
 
 export default {

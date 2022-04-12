@@ -9,5 +9,5 @@ middleware(['auth', 'verified'])->name('maps.show');
 Route::get('/maps/{map}/edit', [\App\Http\Controllers\MapController::class,'edit'])->
 middleware(['auth', 'verified'])->name('maps.edit');
 
-Route::get('/maps/{map}', [\App\Http\Controllers\MapController::class, 'update'])->
+Route::put('/maps/{map}', [\App\Http\Controllers\MapController::class, 'update'])->
 middleware(['auth', 'verified'])->name('maps.update');

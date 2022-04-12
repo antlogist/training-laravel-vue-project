@@ -108,10 +108,4 @@ export default {
 canvas {
   border: 1px solid black;
 }
-
-.canvas-wrapper {
-  overflow: scroll;
-  width: 100%;
-  height: 500px;
-}
 </style>

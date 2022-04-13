@@ -1,6 +1,10 @@
 import { ref, reactive, onMounted } from 'vue';
 
 export default function useCanvas(tiles) {
+
+  //Context menu
+  let isDialogFormOpen = ref(false);
+
   //Canvas
   let canvas = reactive({});
   let ctx = reactive({});
@@ -76,6 +80,7 @@ export default function useCanvas(tiles) {
     } else if(mouseEvent.ctrlKey) {
         layers[currentLayer.value][key] = [selection[0], selection[1], noteId, extraMapId];
     } else {
+      isDialogFormOpen.value = true;
       console.log(mouseEvent);
     }
     draw();
@@ -98,7 +103,7 @@ export default function useCanvas(tiles) {
 
     getCtx.then((value) => {
       ctx = value;
-      draw();
+      // draw();
     });
 
     //Bind mouse events for painting (or removing) tiles on click/drag
@@ -130,12 +135,16 @@ export default function useCanvas(tiles) {
     // tilesetSource = document.querySelector('.tileset-source');
 
     //set tileset source
-    tilesetSource.value = 'https://assets.codepen.io/21542/TileEditorSpritesheet.2x_2.png';
+    tilesetSource.value = document.location.origin + '/images/tiles.png';
 
     //get tilesetImg
     tilesetImg = document.querySelector('#tilesetSource');
 
   });
+
+  setTimeout(() => {
+    draw();
+  },1000)
 
   return {
     canvasSize,
@@ -143,6 +152,7 @@ export default function useCanvas(tiles) {
     currentLayer,
     layers,
     ctx,
+    isDialogFormOpen,
     draw,
     setLayer,
     clearCanvas

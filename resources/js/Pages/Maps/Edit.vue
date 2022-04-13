@@ -10,7 +10,6 @@
                   <v-btn :class="{'bg-grey': currentLayer === 2}" variant="outlined" size="x-small" class="mr-1" @click="setLayer(2)">Top</v-btn>
                   <v-btn :class="{'bg-grey': currentLayer === 1}" variant="outlined" size="x-small" @click="setLayer(1)">Middle</v-btn>
                   <v-btn :class="{'bg-grey': currentLayer === 0}" variant="outlined" size="x-small" class="ml-1" @click="setLayer(0)">Bottom</v-btn>
-
                   <v-btn class="bg-error ml-5" variant="outlined" size="x-small" @click="clearCanvas()">Clear</v-btn>
                 </div>
 
@@ -72,13 +71,12 @@ export default {
 
     let tiles = JSON.parse(props.map.data.tiles);
 
-    let isDialogFormOpen = ref(false);
-
     let {
       canvasSize,
       tilesetSource,
       currentLayer,
       layers,
+      isDialogFormOpen,
       setLayer,
       clearCanvas
     } = useCanvas(tiles);
@@ -126,6 +124,10 @@ export default {
 .tileset-wrapper {
   display: inline-block;
   position: relative;
+  overflow: scroll;
+  width: 100%;
+  height: 1024px;
+  text-align: left;
 }
 .tile-selection {
   position: absolute;
@@ -143,6 +145,6 @@ canvas {
 .canvas-wrapper {
   overflow: scroll;
   width: 100%;
-  height: 500px;
+  height: 800px;
 }
 </style>

@@ -2,7 +2,6 @@
     <BreezeAuthenticatedLayout>
 
         <Head :title="title" />
-
         <v-container>
           <v-row>
             <v-col cols="12" sm="4">
@@ -11,7 +10,6 @@
                   <v-btn :class="{'bg-grey': currentLayer === 2}" variant="outlined" size="x-small" class="mr-1" @click="setLayer(2)">Top</v-btn>
                   <v-btn :class="{'bg-grey': currentLayer === 1}" variant="outlined" size="x-small" @click="setLayer(1)">Middle</v-btn>
                   <v-btn :class="{'bg-grey': currentLayer === 0}" variant="outlined" size="x-small" class="ml-1" @click="setLayer(0)">Bottom</v-btn>
-
                   <v-btn class="bg-error ml-5" variant="outlined" size="x-small" @click="clearCanvas()">Clear</v-btn>
                 </div>
 
@@ -25,6 +23,14 @@
             </v-col>
 
             <v-col cols="12" sm="8">
+
+                <v-text-field
+                  class="mt-5"
+                  label="Map title"
+                  density="compact"
+                  v-model.lazy="map.data.title"
+                  :error-messages="errors.title"
+                ></v-text-field>
 
               <v-card class="pa-2 text-center canvas-wrapper" outlined tile>
                 <canvas :width="canvasSize.width" :height="canvasSize.height"></canvas>
@@ -48,28 +54,29 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
+import { Inertia } from '@inertiajs/inertia';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
-import useCanvas from '../../composables/canvas';
+import useCanvas from '../../composables/canvasEdit';
 import DialogMapItemForm from '../../Components/DialogMapItemForm.vue';
 
 export default {
   props: {
     title: String,
-    map: Object
+    map: Object,
+    errors: Object
   },
   setup(props) {
 
     let tiles = JSON.parse(props.map.data.tiles);
-
-    let isDialogFormOpen = ref(false);
 
     let {
       canvasSize,
       tilesetSource,
       currentLayer,
       layers,
+      isDialogFormOpen,
       setLayer,
       clearCanvas
     } = useCanvas(tiles);
@@ -83,7 +90,12 @@ export default {
     }
 
     const saveMap = function() {
-      alert('!!!');
+      const form = {
+        id: props.map.data.id,
+        title: props.map.data.title,
+        tiles: JSON.stringify(layers)
+      }
+      Inertia.put(`/maps/${props.map.data.slug}`, form);
     }
 
     return {
@@ -112,6 +124,10 @@ export default {
 .tileset-wrapper {
   display: inline-block;
   position: relative;
+  overflow: scroll;
+  width: 100%;
+  height: 1024px;
+  text-align: left;
 }
 .tile-selection {
   position: absolute;
@@ -129,6 +145,6 @@ canvas {
 .canvas-wrapper {
   overflow: scroll;
   width: 100%;
-  height: 500px;
+  height: 800px;
 }
 </style>

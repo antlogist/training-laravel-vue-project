@@ -8,12 +8,7 @@ export default function useCanvas(tiles) {
 
   //Tileset
   let tilesetImg = reactive({});
-  let tilesetWrapper = ref(null);
-  let tilesetSelection = reactive({});
   let tilesetSource = ref('');
-
-  //menu tile
-  let selection = reactive([0, 0]);
 
   //mouse
   let isMouseDown = ref(false);
@@ -67,18 +62,19 @@ export default function useCanvas(tiles) {
   }
 
   //Handler for placing new tiles on the map
-  function tileEvent(mouseEvent, noteId = '', extraMapId = '') {
+  function tileEvent() {
     const clicked = getCoordinates(event);
     const key = clicked[0] + "-" + clicked[1];
 
-    if (mouseEvent.shiftKey) {
-        delete layers[currentLayer.value][key];
-    } else if(mouseEvent.ctrlKey) {
-        layers[currentLayer.value][key] = [selection[0], selection[1], noteId, extraMapId];
-    } else {
-      console.log(mouseEvent);
+    for(let i=0; i < layers.length; i++) {
+      if(i === 0) {
+        console.log('bottom layer', layers[i][key]);
+      }  else if (i === 1) {
+        console.log('middle layer', layers[i][key]);
+      } else {
+        console.log('top layer', layers[i][key]);
+      }
     }
-    draw();
   }
 
   function clearCanvas() {
@@ -117,17 +113,6 @@ export default function useCanvas(tiles) {
           tileEvent(event);
       }
     });
-
-    //tileset
-    tilesetSelection = document.querySelector('.tile-selection');
-    tilesetWrapper = document.querySelector('.tileset-wrapper');
-    //tileset mouse click
-    tilesetWrapper.addEventListener('mousedown', event => {
-      selection = getCoordinates(event);
-      tilesetSelection.style.left = selection[0] * 32 + 'px';
-      tilesetSelection.style.top = selection[1] * 32 + 'px';
-    });
-    // tilesetSource = document.querySelector('.tileset-source');
 
     //set tileset source
     tilesetSource.value = 'https://assets.codepen.io/21542/TileEditorSpritesheet.2x_2.png';

@@ -42,7 +42,14 @@ class NoteController extends Controller
      */
     public function create()
     {
-        //
+        $categories = auth()->user()->categories()->latest()->get();
+        $subcategories = auth()->user()->subcategories()->latest()->get();
+
+        return Inertia::render('Notes/Create', [
+            'title' => 'Note Creation',
+            'categories' => CategoryIndexResource::collection($categories),
+            'subcategories' => SubcategoryIndexResource::collection($subcategories)
+        ]);
     }
 
     /**
@@ -53,7 +60,18 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $insert = [
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'user_id' => auth()->user()->id,
+            'category_id' => $request->category_id,
+            'subcategory_id' => $request->subcategory_id
+        ];
+
+        Note::create($insert);
+
+        return redirect()->route('notes');
     }
 
     /**

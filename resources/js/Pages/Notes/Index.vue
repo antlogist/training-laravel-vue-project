@@ -5,9 +5,6 @@
         <Head :title="title" />
 
         <v-container>
-          <!-- <pre>
-            {{ notes }}
-          </pre> -->
 
             <v-row class="mt-5 mb-5" justify-md="center" no-gutters>
 
@@ -63,6 +60,7 @@
                                             size="x-small"
                                             color="grey lighten-1"
                                             icon="mdi-pen"
+                                            @click="goToPage(`notes/${note.slug}/edit`)"
                                         >
                                         </v-btn>
                                     </v-list-item-avatar>

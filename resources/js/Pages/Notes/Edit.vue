@@ -159,7 +159,7 @@ export default {
     const subcategoryOnMounted = function() {
 
       subcategories.map((item) => {
-        if(item.category_id === props.category.data.id) {
+        if(props.category && item.category_id === props.category.data.id) {
           subcategoryInputItems.value.push(item.title);
         }
         if(props.subcategory && item.id === props.subcategory.data.id) {

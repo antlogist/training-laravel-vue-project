@@ -70,7 +70,7 @@
                                             size="x-small"
                                             color="grey lighten-1"
                                             icon="mdi-close"
-                                            @click="destroy(note.id)">
+                                            @click="destroy(note.slug)">
                                         </v-btn>
                                     </v-list-item-avatar>
 

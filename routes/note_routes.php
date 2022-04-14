@@ -9,6 +9,9 @@ middleware(['auth', 'verified'])->name('notes.create');
 Route::post('/notes', [\App\Http\Controllers\NoteController::class, 'store'])->
 middleware(['auth', 'verified'])->name('notes.store');
 
+Route::post('/notes/delete/{note}', [\App\Http\Controllers\NoteController::class, 'destroy'])->
+middleware(['auth', 'verified'])->name('notes.destroy');
+
 Route::get('/notes/{note}', [\App\Http\Controllers\NoteController::class, 'show'])->
 middleware(['auth', 'verified'])->name('notes.show');
 

@@ -27,11 +27,7 @@
 
         </v-app-bar>
         <div class="d-flex align-center justify-center" style="height: 100vh;">
-            <v-card color="grey-lighten-2 d-flex align-center justify-center mx-auto elevation-9" height="200px" max-width="344">
-                <v-card-text>
-                    <h1>Mnemonica</h1>
-                </v-card-text>
-            </v-card>
+            <h1>Mnemonica</h1>
         </div>
 
     </v-app>

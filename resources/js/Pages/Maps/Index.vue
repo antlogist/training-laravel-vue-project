@@ -115,7 +115,7 @@ export default {
     methods: {
         destroy(id) {
             if(confirm('Do you really want to delete this map?')) {
-                this.$inertia.delete(this.route('maps.destroy', id));
+                this.$inertia.post(this.route('maps.destroy', id));
 
                 //If last item on last page
                 if(

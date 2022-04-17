@@ -3,6 +3,9 @@
 Route::get('/maps', [\App\Http\Controllers\MapController::class,'index'])->
 middleware(['auth', 'verified'])->name('maps');
 
+Route::post('/maps/delete/{map}', [\App\Http\Controllers\MapController::class, 'destroy'])->
+middleware(['auth', 'verified'])->name('maps.destroy');
+
 Route::get('/maps/{map}', [\App\Http\Controllers\MapController::class, 'show'])->
 middleware(['auth', 'verified'])->name('maps.show');
 

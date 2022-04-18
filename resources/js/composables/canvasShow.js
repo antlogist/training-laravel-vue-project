@@ -94,7 +94,6 @@ export default function useCanvas(tiles) {
 
     getCtx.then((value) => {
       ctx = value;
-      draw();
     });
 
     //Bind mouse events for painting (or removing) tiles on click/drag
@@ -121,6 +120,10 @@ export default function useCanvas(tiles) {
     tilesetImg = document.querySelector('#tilesetSource');
 
   });
+
+  setTimeout(()=>{
+    draw();
+  }, 1000);
 
   return {
     canvasSize,

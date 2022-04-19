@@ -114,7 +114,7 @@ export default function useCanvas(tiles) {
     });
 
     //set tileset source
-    tilesetSource.value = 'https://assets.codepen.io/21542/TileEditorSpritesheet.2x_2.png';
+    tilesetSource.value = document.location.origin + '/images/tiles.png';
 
     //get tilesetImg
     tilesetImg = document.querySelector('#tilesetSource');

@@ -26,6 +26,9 @@ export default function useCanvas(tiles) {
   let layers = reactive(tiles);
   let currentLayer = ref(0);
 
+  //dialog
+  let dialogMode = ref(null);
+
   function setLayer(layer) {
     currentLayer.value = layer;
   }
@@ -75,13 +78,24 @@ export default function useCanvas(tiles) {
     const clicked = getCoordinates(event);
     const key = clicked[0] + "-" + clicked[1];
 
+    function getDialogMode() {
+      for(let i=layers.length - 1; i >= 0; i--) {
+        if (layers[i][key]) {
+          dialogMode.value = i;
+          return;
+        }
+        dialogMode.value = null;
+      }
+    }
+
     if (mouseEvent.shiftKey) {
         delete layers[currentLayer.value][key];
     } else if(mouseEvent.ctrlKey) {
         layers[currentLayer.value][key] = [selection[0], selection[1], noteId, extraMapId];
     } else {
+      //Open dialog
+      getDialogMode();
       isDialogFormOpen.value = true;
-      console.log(mouseEvent);
     }
     draw();
   }

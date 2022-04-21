@@ -95,6 +95,9 @@ export default function useCanvas(tiles) {
     } else {
       //Open dialog
       getDialogMode();
+      if (dialogMode.value === null) {
+        return;
+      }
       isDialogFormOpen.value = true;
     }
     draw();
@@ -167,6 +170,7 @@ export default function useCanvas(tiles) {
     layers,
     ctx,
     isDialogFormOpen,
+    dialogMode,
     draw,
     setLayer,
     clearCanvas

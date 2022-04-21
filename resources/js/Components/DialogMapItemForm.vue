@@ -2,14 +2,30 @@
   <v-row justify="center">
     <v-dialog
       v-model="dialog"
+      fullscreen
       persistent
     >
 
       <v-card>
-
-        <v-card-title>
-          <span class="text-h5">Dialog Form</span>
-        </v-card-title>
+        <v-toolbar
+          dark
+          color="red"
+        >
+          <v-toolbar-title>Dialog</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-btn
+              icon
+              dark
+              @click="close"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-toolbar-items>
+        </v-toolbar>
+        <v-card-subtitle>
+          Mode: {{ mode }}
+        </v-card-subtitle>
 
         <v-card-text>
           <v-container>
@@ -86,7 +102,8 @@ export default {
     dialog: Boolean,
     categories: Object,
     subcategories: Object,
-    errors: Object
+    errors: Object,
+    mode: Number
   },
 
   emits: ['closeDialog'],

@@ -40,13 +40,13 @@
                 <v-btn @click="openMapItemDialog">Open Dialog</v-btn>
                 <v-btn @click="saveMap">Save Map</v-btn>
               </v-card>
-
             </v-col>
 
           </v-row>
 
           <DialogMapItemForm
             :dialog='isDialogFormOpen'
+            :mode='dialogMode'
             @closeDialog='closeMapItemDialog'/>
 
         </v-container>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+// import { ref } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
@@ -77,6 +77,7 @@ export default {
       currentLayer,
       layers,
       isDialogFormOpen,
+      dialogMode,
       setLayer,
       clearCanvas
     } = useCanvas(tiles);
@@ -86,6 +87,7 @@ export default {
     }
 
     const closeMapItemDialog = function() {
+      dialogMode.value = null;
       isDialogFormOpen.value = false;
     }
 
@@ -104,6 +106,7 @@ export default {
       currentLayer,
       layers,
       isDialogFormOpen,
+      dialogMode,
       openMapItemDialog,
       closeMapItemDialog,
       setLayer,

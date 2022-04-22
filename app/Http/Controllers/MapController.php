@@ -35,7 +35,9 @@ class MapController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Maps/Create', [
+            'title' => 'Map'
+        ]);
     }
 
     /**
@@ -46,7 +48,16 @@ class MapController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $insert = [
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'tiles' => $request->tiles,
+            'user_id' => auth()->user()->id,
+        ];
+
+        Map::create($insert);
+
+        return redirect()->route('maps');
     }
 
     /**

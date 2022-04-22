@@ -3,6 +3,12 @@
 Route::get('/maps', [\App\Http\Controllers\MapController::class,'index'])->
 middleware(['auth', 'verified'])->name('maps');
 
+Route::get('/maps/create', [\App\Http\Controllers\MapController::class, 'create'])->
+middleware(['auth', 'verified'])->name('maps.create');
+
+Route::post('/maps', [\App\Http\Controllers\MapController::class, 'store'])->
+middleware(['auth', 'verified'])->name('maps.store');
+
 Route::post('/maps/delete/{map}', [\App\Http\Controllers\MapController::class, 'destroy'])->
 middleware(['auth', 'verified'])->name('maps.destroy');
 

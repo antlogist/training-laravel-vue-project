@@ -27,8 +27,16 @@
           Mode: {{ mode }}
         </v-card-subtitle>
 
+        <v-card-subtitle>
+          Note: {{ noteId }}
+        </v-card-subtitle>
+
+        <v-card-subtitle>
+          Map: {{ mapId }}
+        </v-card-subtitle>
+
         <v-card-text>
-          <v-container>
+          <v-container v-if="mode === 1">
             <v-form @submit.prevent="submit">
               <v-row>
                 <v-col cols="12">
@@ -103,7 +111,9 @@ export default {
     categories: Object,
     subcategories: Object,
     errors: Object,
-    mode: Number
+    mode: Number,
+    noteId: String,
+    mapId: String,
   },
 
   emits: ['closeDialog'],

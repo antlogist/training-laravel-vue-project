@@ -28,6 +28,8 @@ export default function useCanvas(tiles) {
 
   //dialog
   let dialogMode = ref(null);
+  let dialogNoteId = ref(null);
+  let dialogExtraMapId = ref(null);
 
   function setLayer(layer) {
     currentLayer.value = layer;
@@ -82,6 +84,8 @@ export default function useCanvas(tiles) {
       for(let i=layers.length - 1; i >= 0; i--) {
         if (layers[i][key]) {
           dialogMode.value = i;
+          dialogNoteId.value = layers[i][key][2];
+          dialogExtraMapId.value = layers[i][key][3];
           return;
         }
         dialogMode.value = null;
@@ -171,6 +175,8 @@ export default function useCanvas(tiles) {
     ctx,
     isDialogFormOpen,
     dialogMode,
+    dialogNoteId,
+    dialogExtraMapId,
     draw,
     setLayer,
     clearCanvas

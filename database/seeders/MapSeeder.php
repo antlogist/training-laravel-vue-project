@@ -20,7 +20,7 @@ class MapSeeder extends Seeder
                 'slug' => 'test-map',
                 'tiles' => json_encode([
                         [
-                            '0-0' => [0, 0, '', '']
+                            '0-0' => [0, 0, '11', '22']
                         ],
                         (object)[],
                         (object)[]

@@ -1,6 +1,5 @@
 <template>
     <BreezeAuthenticatedLayout>
-
         <Head :title="title" />
         <v-container>
           <v-row>
@@ -47,6 +46,8 @@
           <DialogMapItemForm
             :dialog='isDialogFormOpen'
             :mode='dialogMode'
+            :noteId='dialogNoteId'
+            :mapId='dialogExtraMapId'
             @closeDialog='closeMapItemDialog'/>
 
         </v-container>
@@ -78,6 +79,8 @@ export default {
       layers,
       isDialogFormOpen,
       dialogMode,
+      dialogNoteId,
+      dialogExtraMapId,
       setLayer,
       clearCanvas
     } = useCanvas(tiles);
@@ -89,6 +92,8 @@ export default {
     const closeMapItemDialog = function() {
       dialogMode.value = null;
       isDialogFormOpen.value = false;
+      dialogNoteId.value = null;
+      dialogExtraMapId.value = null;
     }
 
     const saveMap = function() {
@@ -107,6 +112,8 @@ export default {
       layers,
       isDialogFormOpen,
       dialogMode,
+      dialogNoteId,
+      dialogExtraMapId,
       openMapItemDialog,
       closeMapItemDialog,
       setLayer,

@@ -45,7 +45,7 @@
 
           </v-row>
 
-          <DialogMapItemForm
+          <DialogMapNote
             :dialog='isDialogFormOpen'
             :mode='dialogMode'
             @closeDialog='closeMapItemDialog'/>
@@ -60,7 +60,7 @@ import { Head } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import useCanvas from '../../composables/canvasEdit';
-import DialogMapItemForm from '../../Components/DialogMapItemForm.vue';
+import DialogMapNote from '../../Components/DialogMapNote.vue';
 
 export default {
   props: {
@@ -120,7 +120,7 @@ export default {
   components: {
       Head,
       BreezeAuthenticatedLayout,
-      DialogMapItemForm
+      DialogMapNote
   },
 }
 </script>

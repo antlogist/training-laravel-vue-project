@@ -44,7 +44,7 @@
           </v-row>
 
           <DialogMapNote
-            :dialog='isDialogFormOpen'
+            :dialog='isDialogNoteOpen'
             :mode='dialogMode'
             :noteId='dialogNoteId'
             :mapId='dialogExtraMapId'
@@ -77,7 +77,7 @@ export default {
       tilesetSource,
       currentLayer,
       layers,
-      isDialogFormOpen,
+      isDialogNoteOpen,
       dialogMode,
       dialogNoteId,
       dialogExtraMapId,
@@ -86,12 +86,12 @@ export default {
     } = useCanvas(tiles);
 
     const openMapItemDialog = function() {
-      isDialogFormOpen.value = true;
+      isDialogNoteOpen.value = true;
     }
 
     const closeMapItemDialog = function() {
       dialogMode.value = null;
-      isDialogFormOpen.value = false;
+      isDialogNoteOpen.value = false;
       dialogNoteId.value = null;
       dialogExtraMapId.value = null;
     }
@@ -110,7 +110,7 @@ export default {
       tilesetSource,
       currentLayer,
       layers,
-      isDialogFormOpen,
+      isDialogNoteOpen,
       dialogMode,
       dialogNoteId,
       dialogExtraMapId,

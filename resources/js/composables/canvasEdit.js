@@ -3,7 +3,7 @@ import { ref, reactive, onMounted } from 'vue';
 export default function useCanvas(tiles) {
 
   //Context menu
-  let isDialogFormOpen = ref(false);
+  let isDialogNoteOpen = ref(false);
 
   //Canvas
   let canvas = reactive({});
@@ -102,7 +102,9 @@ export default function useCanvas(tiles) {
       if (dialogMode.value === null) {
         return;
       }
-      isDialogFormOpen.value = true;
+      if (dialogMode.value === 1) {
+        isDialogNoteOpen.value = true;
+      }
     }
     draw();
   }
@@ -173,7 +175,7 @@ export default function useCanvas(tiles) {
     currentLayer,
     layers,
     ctx,
-    isDialogFormOpen,
+    isDialogNoteOpen,
     dialogMode,
     dialogNoteId,
     dialogExtraMapId,

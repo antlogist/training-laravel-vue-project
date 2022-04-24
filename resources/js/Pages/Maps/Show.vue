@@ -36,7 +36,7 @@
           </v-row>
 
           <DialogMapNote
-            :dialog='isDialogFormOpen'
+            :dialog='isDialogNoteOpen'
             @closeDialog='closeMapItemDialog'/>
 
         </v-container>
@@ -59,7 +59,7 @@ export default {
 
     let tiles = JSON.parse(props.map.data.tiles);
 
-    let isDialogFormOpen = ref(false);
+    let isDialogNoteOpen = ref(false);
 
     let {
       canvasSize,
@@ -69,11 +69,11 @@ export default {
     } = useCanvas(tiles);
 
     const openMapItemDialog = function() {
-      isDialogFormOpen.value = true;
+      isDialogNoteOpen.value = true;
     }
 
     const closeMapItemDialog = function() {
-      isDialogFormOpen.value = false;
+      isDialogNoteOpen.value = false;
     }
 
     const saveMap = function() {
@@ -89,7 +89,7 @@ export default {
       tilesetSource,
       currentLayer,
       layers,
-      isDialogFormOpen,
+      isDialogNoteOpen,
       openMapItemDialog,
       closeMapItemDialog,
       backPage

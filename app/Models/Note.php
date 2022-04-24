@@ -9,7 +9,7 @@ class Note extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'content', 'maps', 'category_id', 'subcategory_id', 'user_id'];
+    protected $fillable = ['title', 'slug', 'content', 'tiles', 'category_id', 'subcategory_id', 'user_id'];
 
     public function getRouteKeyName() {
         return 'slug';

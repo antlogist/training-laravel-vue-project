@@ -21,6 +21,8 @@ class CreateNotesTable extends Migration
             $table->string('slug');
             $table->text('content');
 
+            $table->json('maps')->nullable();
+
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade');

@@ -43,8 +43,8 @@
 
           </v-row>
 
-          <DialogMapItemForm
-            :dialog='isDialogFormOpen'
+          <DialogMapNote
+            :dialog='isDialogNoteOpen'
             :mode='dialogMode'
             :noteId='dialogNoteId'
             :mapId='dialogExtraMapId'
@@ -60,7 +60,7 @@ import { Head } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import useCanvas from '../../composables/canvasEdit';
-import DialogMapItemForm from '../../Components/DialogMapItemForm.vue';
+import DialogMapNote from '../../Components/DialogMapNote.vue';
 
 export default {
   props: {
@@ -77,7 +77,7 @@ export default {
       tilesetSource,
       currentLayer,
       layers,
-      isDialogFormOpen,
+      isDialogNoteOpen,
       dialogMode,
       dialogNoteId,
       dialogExtraMapId,
@@ -86,12 +86,12 @@ export default {
     } = useCanvas(tiles);
 
     const openMapItemDialog = function() {
-      isDialogFormOpen.value = true;
+      isDialogNoteOpen.value = true;
     }
 
     const closeMapItemDialog = function() {
       dialogMode.value = null;
-      isDialogFormOpen.value = false;
+      isDialogNoteOpen.value = false;
       dialogNoteId.value = null;
       dialogExtraMapId.value = null;
     }
@@ -110,7 +110,7 @@ export default {
       tilesetSource,
       currentLayer,
       layers,
-      isDialogFormOpen,
+      isDialogNoteOpen,
       dialogMode,
       dialogNoteId,
       dialogExtraMapId,
@@ -125,7 +125,7 @@ export default {
   components: {
       Head,
       BreezeAuthenticatedLayout,
-      DialogMapItemForm
+      DialogMapNote
   },
 }
 </script>

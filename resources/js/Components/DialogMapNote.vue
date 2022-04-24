@@ -36,7 +36,7 @@
         </v-card-subtitle>
 
         <v-card-text>
-          <v-container v-if="mode === 1">
+          <v-container>
             <v-form @submit.prevent="submit">
               <v-row>
                 <v-col cols="12">

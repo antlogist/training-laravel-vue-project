@@ -17,6 +17,7 @@ class NoteFactory extends Factory
             'title' => $this->faker->sentence(),
             'slug' => $this->faker->slug(),
             'content' => $this->faker->paragraph(),
+            'maps' => null,
             'user_id' => 1,
             'category_id' => 1,
             'subcategory_id' => 1

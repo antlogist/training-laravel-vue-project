@@ -35,8 +35,8 @@
 
           </v-row>
 
-          <DialogMapItemForm
-            :dialog='isDialogFormOpen'
+          <DialogMapNote
+            :dialog='isDialogNoteOpen'
             @closeDialog='closeMapItemDialog'/>
 
         </v-container>
@@ -48,7 +48,7 @@ import { ref } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
 import useCanvas from '../../composables/canvasShow';
-import DialogMapItemForm from '../../Components/DialogMapItemForm.vue';
+import DialogMapNote from '../../Components/DialogMapNote.vue';
 
 export default {
   props: {
@@ -59,7 +59,7 @@ export default {
 
     let tiles = JSON.parse(props.map.data.tiles);
 
-    let isDialogFormOpen = ref(false);
+    let isDialogNoteOpen = ref(false);
 
     let {
       canvasSize,
@@ -69,11 +69,11 @@ export default {
     } = useCanvas(tiles);
 
     const openMapItemDialog = function() {
-      isDialogFormOpen.value = true;
+      isDialogNoteOpen.value = true;
     }
 
     const closeMapItemDialog = function() {
-      isDialogFormOpen.value = false;
+      isDialogNoteOpen.value = false;
     }
 
     const saveMap = function() {
@@ -89,7 +89,7 @@ export default {
       tilesetSource,
       currentLayer,
       layers,
-      isDialogFormOpen,
+      isDialogNoteOpen,
       openMapItemDialog,
       closeMapItemDialog,
       backPage
@@ -99,7 +99,7 @@ export default {
   components: {
       Head,
       BreezeAuthenticatedLayout,
-      DialogMapItemForm
+      DialogMapNote
   },
 }
 </script>

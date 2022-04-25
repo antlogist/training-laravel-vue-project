@@ -15,16 +15,6 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-
-        $categories = ['JavaScript', 'PHP', 'Laravel'];
-
-        foreach ($categories as $category) {
-            Category::create([
-                'user_id' => 1,
-                'title' => $category,
-                'slug' => Str::slug($category)
-              ]);
-        }
-
+        Category::factory(20)->create();
     }
 }
